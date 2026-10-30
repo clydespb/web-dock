@@ -1,0 +1,126 @@
+/* Cursor spotlight */
+
+.cursor-spotlight{
+    position:fixed;
+    inset:0;
+    z-index:3;
+    pointer-events:none;
+    mix-blend-mode:screen;
+    opacity:0;
+    transition:opacity .5s ease;
+}
+
+.cursor-spotlight.is-active{
+    opacity:1;
+}
+
+.cursor-spotlight::before{
+    content:"";
+    position:absolute;
+    left:var(--spot-x, 50%);
+    top:var(--spot-y, 50%);
+    width:460px;
+    height:460px;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(79,140,255,.16) 0%, transparent 70%);
+}
+
+@media (max-width:768px){
+    .cursor-spotlight::before{
+        width:300px;
+        height:300px;
+    }
+}
+
+@media (prefers-reduced-motion:reduce){
+    .cursor-spotlight{
+        display:none;
+    }
+}
+
+/* Ambient section glow */
+
+.ambient-glow{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+    pointer-events:none;
+    mix-blend-mode:screen;
+}
+
+.ambient-glow::before,
+.ambient-glow::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    filter:blur(55px);
+}
+
+.ambient-glow::before{
+    width:30%;
+    height:38%;
+    background:radial-gradient(circle, rgba(79,140,255,.34) 0%, transparent 70%);
+    animation:ambientGlowA 10s ease-in-out infinite;
+}
+
+.ambient-glow::after{
+    width:26%;
+    height:34%;
+    background:radial-gradient(circle, rgba(79,140,255,.24) 0%, transparent 70%);
+    animation:ambientGlowB 13s ease-in-out infinite;
+    animation-delay:-4s;
+}
+
+.ambient-glow__accent{
+    position:absolute;
+    width:24%;
+    height:32%;
+    border-radius:50%;
+    filter:blur(65px);
+    background:radial-gradient(circle, rgba(255,170,90,.24) 0%, transparent 70%);
+    animation:ambientGlowC 15s ease-in-out infinite;
+    animation-delay:-7s;
+}
+
+.advantages .ambient-glow::before{ top:14%; left:6%; }
+.advantages .ambient-glow::after{ bottom:16%; right:8%; }
+.advantages .ambient-glow__accent{ top:38%; left:42%; }
+
+@keyframes ambientGlowA{
+    0%,100%{ opacity:.45; }
+    50%{ opacity:1; }
+}
+
+@keyframes ambientGlowB{
+    0%,100%{ opacity:.3; }
+    50%{ opacity:.7; }
+}
+
+@keyframes ambientGlowC{
+    0%,100%{ opacity:.22; }
+    50%{ opacity:.55; }
+}
+
+.advantages__grid,
+.services__list,
+.timeline,
+.cta__content,
+.section-heading{
+    position:relative;
+    z-index:1;
+}
+
+@media (max-width:768px){
+    .ambient-glow::before,
+    .ambient-glow::after,
+    .ambient-glow__accent{
+        width:46%;
+        height:22%;
+    }
+
+    .advantages .ambient-glow::before{ top:10%; left:8%; }
+    .advantages .ambient-glow::after{ bottom:12%; right:6%; }
+    .advantages .ambient-glow__accent{ top:42%; left:28%; }
+}

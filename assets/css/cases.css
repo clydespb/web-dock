@@ -1,0 +1,328 @@
+/* Cases / projects */
+
+.cases{
+    position:relative;
+}
+
+.cases__list{
+    display:flex;
+    flex-direction:column;
+    gap:120px;
+}
+
+.case{
+    display:grid;
+    grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+    gap:72px;
+    align-items:center;
+}
+
+.case--reverse{
+    grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);
+}
+
+.case--reverse .case__media{
+    order:2;
+}
+
+/* Per-project palettes */
+
+.case--finnpack{
+    --case-bg:
+        radial-gradient(110% 90% at 88% 8%, rgba(130,195,255,.38), transparent 60%),
+        linear-gradient(160deg, #0a1c33 0%, #113a68 58%, #1c5c99 100%);
+    --case-ink:#eef6ff;
+    --case-glow:rgba(60,140,255,.32);
+}
+
+.case--leomateo{
+    --case-bg:
+        radial-gradient(110% 90% at 88% 8%, rgba(255,190,120,.30), transparent 60%),
+        linear-gradient(160deg, #1a110b 0%, #452816 58%, #84502a 100%);
+    --case-ink:#f6eadb;
+    --case-glow:rgba(210,130,60,.28);
+}
+
+.case--piazza{
+    --case-bg:
+        radial-gradient(110% 90% at 88% 8%, rgba(255,150,140,.26), transparent 60%),
+        linear-gradient(160deg, #170809 0%, #4a1118 58%, #86202d 100%);
+    --case-ink:#f8ece5;
+    --case-glow:rgba(200,55,70,.28);
+}
+
+/* Browser frame */
+
+.case__media{
+    display:block;
+    border-radius:20px;
+}
+
+.case__browser{
+    position:relative;
+    border-radius:18px;
+    overflow:hidden;
+    background:#0f0f10;
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:
+        0 50px 110px -40px var(--case-glow),
+        0 24px 60px rgba(0,0,0,.5);
+    transition:
+        transform .6s cubic-bezier(.22,1,.36,1),
+        box-shadow .6s cubic-bezier(.22,1,.36,1);
+}
+
+.case__bar{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    height:38px;
+    padding:0 16px;
+    background:rgba(255,255,255,.035);
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.case__bar span{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:rgba(255,255,255,.14);
+    flex-shrink:0;
+}
+
+.case__bar em{
+    margin-left:14px;
+    padding:5px 14px;
+    border-radius:999px;
+    background:rgba(255,255,255,.05);
+    color:rgba(255,255,255,.45);
+    font-size:12px;
+    font-style:normal;
+    letter-spacing:.02em;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    min-width:0;
+}
+
+.case__screen{
+    position:relative;
+    aspect-ratio:2 / 1;
+    overflow:hidden;
+    background:var(--case-bg);
+}
+
+/* Case cover */
+
+.case__cover{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:18px;
+    padding:8% 9%;
+    background:var(--case-bg);
+    color:var(--case-ink);
+}
+
+.case__cover-kicker{
+    font-size:11px;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    opacity:.7;
+}
+
+.case__cover-title{
+    font-size:clamp(34px,4.6vw,68px);
+    font-weight:600;
+    line-height:1;
+    letter-spacing:-.04em;
+}
+
+.case__cover-skeleton{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:14px;
+}
+
+.case__cover-skeleton i{
+    display:block;
+    height:7px;
+    border-radius:4px;
+    background:currentColor;
+    opacity:.16;
+}
+
+.case__cover-skeleton i:nth-child(1){ width:58%; }
+.case__cover-skeleton i:nth-child(2){ width:44%; }
+
+.case__cover-skeleton i:nth-child(3){
+    width:120px;
+    height:30px;
+    margin-top:12px;
+    border-radius:999px;
+    opacity:.22;
+}
+
+/* Real screenshot */
+
+.case__shot{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:top center;
+    transition:object-position 6s cubic-bezier(.45,0,.2,1);
+}
+
+@media (hover:hover){
+
+    .case__media:hover .case__browser{
+        transform:translateY(-8px);
+        box-shadow:
+            0 60px 130px -40px var(--case-glow),
+            0 30px 70px rgba(0,0,0,.55);
+    }
+
+    .case__media:hover .case__shot{
+        object-position:bottom center;
+    }
+}
+
+/* Text column */
+
+.case__info{
+    max-width:520px;
+}
+
+.case__meta{
+    display:block;
+    margin-bottom:20px;
+    color:var(--accent);
+    font-size:13px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+}
+
+.case__info h3{
+    margin-bottom:18px;
+    font-size:clamp(32px,3.2vw,48px);
+    font-weight:600;
+    line-height:1.05;
+    letter-spacing:-.03em;
+}
+
+.case__lead{
+    margin-bottom:16px;
+    color:var(--text);
+    font-size:19px;
+    line-height:1.6;
+}
+
+.case__info p:not(.case__lead){
+    color:var(--gray);
+    font-size:16px;
+    line-height:1.8;
+}
+
+.case__tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:28px 0 32px;
+}
+
+.case__tags li{
+    padding:7px 14px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:999px;
+    color:var(--gray);
+    font-size:13px;
+}
+
+.case__link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding-bottom:4px;
+    border-bottom:1px solid rgba(255,255,255,.2);
+    color:var(--text);
+    font-weight:500;
+    transition:color .3s ease, border-color .3s ease;
+}
+
+.case__link span{
+    transition:transform .3s ease;
+}
+
+.case__link:hover{
+    color:var(--accent);
+    border-color:var(--accent);
+}
+
+.case__link:hover span{
+    transform:translate(3px,-3px);
+}
+
+/* Responsive */
+
+@media (max-width:992px){
+
+    .cases__list{
+        gap:88px;
+    }
+
+    .case,
+    .case--reverse{
+        grid-template-columns:minmax(0,1fr);
+        gap:36px;
+    }
+
+    .case--reverse .case__media{
+        order:0;
+    }
+
+    .case__info{
+        max-width:640px;
+    }
+}
+
+@media (max-width:576px){
+
+    .cases__list{
+        gap:72px;
+    }
+
+    .case__bar{
+        height:32px;
+        padding:0 12px;
+    }
+
+    .case__bar span{
+        width:8px;
+        height:8px;
+    }
+
+    .case__cover{
+        gap:12px;
+    }
+
+    .case__cover-skeleton{
+        display:none;
+    }
+
+    .case__lead{
+        font-size:17px;
+    }
+}
+
+@media (prefers-reduced-motion:reduce){
+
+    .case__browser,
+    .case__shot{
+        transition:none;
+    }
+}

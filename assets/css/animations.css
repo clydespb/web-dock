@@ -1,0 +1,35 @@
+.section-heading,
+.advantage-card,
+.case,
+.service,
+.timeline__item,
+.cta__content{
+
+    transition:
+
+        opacity .8s ease,
+
+        transform .8s ease;
+}
+
+.reveal{
+    opacity:0;
+    transform:translateY(50px);
+}
+
+.reveal.is-visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.advantages__grid .reveal:nth-child(2){ transition-delay:.08s; }
+.advantages__grid .reveal:nth-child(3){ transition-delay:.16s; }
+.advantages__grid .reveal:nth-child(4){ transition-delay:.24s; }
+
+.services__list .reveal:nth-child(2){ transition-delay:.08s; }
+.services__list .reveal:nth-child(3){ transition-delay:.16s; }
+.services__list .reveal:nth-child(4){ transition-delay:.24s; }
+
+.timeline .reveal:nth-child(2){ transition-delay:.08s; }
+.timeline .reveal:nth-child(3){ transition-delay:.16s; }
+.timeline .reveal:nth-child(4){ transition-delay:.24s; }

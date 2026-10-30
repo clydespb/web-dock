@@ -1,0 +1,30 @@
+:root{
+
+    --bg:#080808;
+
+    --bg-secondary:#101010;
+
+    --card:#151515;
+
+    --line:#232323;
+
+    --text:#F5F5F5;
+
+    --gray:#B8B8B8;
+
+    --accent:#4F8CFF;
+
+    --accent-hover:#6A9EFF;
+
+    --radius:18px;
+
+    --container:1600px;
+
+    --header:96px;
+
+    --transition:.35s cubic-bezier(.4,0,.2,1);
+
+    --shadow:
+
+    0 25px 80px rgba(0,0,0,.45);
+}
