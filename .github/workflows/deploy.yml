@@ -13,15 +13,6 @@ jobs:
       - name: Получить код
         uses: actions/checkout@v6
 
-      - name: Проверка связи с Джино
-        env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-        run: |
-          echo "Длина имени сервера: ${#FTP_SERVER} символов"
-          getent hosts "$FTP_SERVER" && echo "Имя сервера найдено" || echo "ОШИБКА: имя сервера не найдено"
-          timeout 15 bash -c "</dev/tcp/$FTP_SERVER/21" && echo "Порт 21 (FTPS) открыт" || echo "Порт 21 (FTPS) НЕДОСТУПЕН"
-          timeout 15 bash -c "</dev/tcp/$FTP_SERVER/2222" && echo "Порт 2222 (SFTP) открыт" || echo "Порт 2222 (SFTP) НЕДОСТУПЕН"
-
       - name: Загрузить файлы по FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
@@ -32,8 +23,6 @@ jobs:
           port: 21
           server-dir: ./
           timeout: 120000
-          log-level: verbose
-          dry-run: true
           exclude: |
             **/.git*
             **/.git*/**
