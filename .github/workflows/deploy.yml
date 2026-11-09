@@ -29,6 +29,6 @@ jobs:
           open --env-password -u "$FTP_USERNAME" sftp://$FTP_SERVER:2222
           pwd
           cls -1
-          mirror --reverse --dry-run --verbose --exclude-glob .git*/ --exclude-glob .git* --exclude-glob README.md --exclude-glob CLAUDE.md ./ ./
+          mirror --reverse --verbose --exclude-glob .git*/ --exclude-glob .git* --exclude-glob README.md --exclude-glob CLAUDE.md ./ ./
           EOF
           lftp -f /tmp/deploy.lftp
