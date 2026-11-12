@@ -24,8 +24,12 @@ jobs:
         run: |
           cat > /tmp/deploy.lftp <<EOF
           set sftp:auto-confirm yes
-          set net:timeout 30
-          set net:max-retries 2
+          set cmd:fail-exit yes
+          set net:timeout 20
+          set net:max-retries 6
+          set net:reconnect-interval-base 10
+          set net:reconnect-interval-multiplier 2
+          set net:reconnect-interval-max 60
           open --env-password -u "$FTP_USERNAME" sftp://$FTP_SERVER:2222
           pwd
           cls -1
