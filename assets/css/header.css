@@ -139,6 +139,11 @@
 
     height:82px;
 }
+
+.header--on-light{
+
+    background:rgba(8,8,8,.96);
+}
 /* Header light */
 
 .header::before{

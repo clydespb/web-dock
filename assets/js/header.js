@@ -4,18 +4,35 @@ function initHeader() {
 
     if (!header) return;
 
-    window.addEventListener("scroll", () => {
+    const lightSections = document.querySelectorAll(".cases");
 
-        if (window.scrollY > 40) {
+    let ticking = false;
 
-            header.classList.add("header--scroll");
+    function update() {
 
-        } else {
+        ticking = false;
 
-            header.classList.remove("header--scroll");
+        header.classList.toggle("header--scroll", window.scrollY > 40);
 
-        }
+        const edge = header.offsetHeight;
+        let onLight = false;
 
-    });
+        lightSections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top < edge && rect.bottom > 0) onLight = true;
+        });
 
+        header.classList.toggle("header--on-light", onLight);
+    }
+
+    function requestUpdate() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+    }
+
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    update();
 }

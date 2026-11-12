@@ -37,7 +37,7 @@
 
         min-height:auto;
 
-        padding-bottom:80px;
+        padding-bottom:54vw;
     }
 
     .hero__container{
@@ -67,6 +67,11 @@
 }
 
 @media (max-width:768px){
+
+    .hero{
+
+        padding-bottom:min(70vw,430px);
+    }
 
     .nav{
 
@@ -101,14 +106,45 @@
         font-size:44px;
     }
 
+    .hero{
+
+        padding-top:124px;
+
+        padding-bottom:min(80vw,430px);
+    }
+
+    .hero__label{
+
+        margin-bottom:22px;
+    }
+
     .hero p{
 
-        font-size:18px;
+        margin-top:24px;
+
+        font-size:17px;
+
+        line-height:1.65;
     }
 
     .hero__buttons{
 
-        flex-direction:column;
+        flex-wrap:wrap;
+
+        gap:12px;
+
+        margin-top:36px;
+    }
+
+    .hero__buttons .button{
+
+        flex:1 1 140px;
+
+        height:56px;
+
+        padding:0 14px;
+
+        font-size:15px;
     }
 
     .button{
