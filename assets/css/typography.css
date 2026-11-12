@@ -46,6 +46,12 @@ select{
     }
 }
 
+@media (max-width:1200px){
+    .hero h1{
+        font-size:calc(58px * var(--display-scale));
+    }
+}
+
 @media (max-width:992px){
     .hero h1{
         font-size:calc(56px * var(--display-scale));
