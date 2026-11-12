@@ -54,6 +54,7 @@
 /* Browser frame */
 
 .case__media{
+    position:relative;
     display:block;
     border-radius:20px;
 }
@@ -192,6 +193,45 @@
     }
 }
 
+/* Phone mockup */
+
+.case__phone{
+    position:absolute;
+    right:-30px;
+    bottom:-40px;
+    width:21%;
+    aspect-ratio:440 / 916;
+    border:5px solid #101012;
+    border-radius:24px;
+    overflow:hidden;
+    background:var(--case-bg);
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.14),
+        0 30px 60px -20px var(--case-glow),
+        0 18px 40px rgba(0,0,0,.45);
+    transition:transform .6s cubic-bezier(.22,1,.36,1);
+}
+
+.case--reverse .case__phone{
+    right:auto;
+    left:-30px;
+}
+
+.case__phone-shot{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:top center;
+}
+
+@media (hover:hover){
+
+    .case__media:hover .case__phone{
+        transform:translateY(-16px);
+    }
+}
+
 /* Text column */
 
 .case__info{
@@ -285,6 +325,13 @@
         order:0;
     }
 
+    .case__phone,
+    .case--reverse .case__phone{
+        left:auto;
+        right:-12px;
+        bottom:-32px;
+    }
+
     .case__info{
         max-width:640px;
     }
@@ -294,6 +341,15 @@
 
     .cases__list{
         gap:72px;
+    }
+
+    .case__phone,
+    .case--reverse .case__phone{
+        right:-6px;
+        bottom:-14px;
+        width:22%;
+        border-width:3px;
+        border-radius:14px;
     }
 
     .case__bar{
@@ -322,6 +378,7 @@
 @media (prefers-reduced-motion:reduce){
 
     .case__browser,
+    .case__phone,
     .case__shot{
         transition:none;
     }
