@@ -176,7 +176,48 @@
     height:100%;
     object-fit:cover;
     object-position:top center;
-    transition:object-position 6s cubic-bezier(.45,0,.2,1);
+}
+
+/* Extra screens, cycled on hover */
+
+.case__shot--extra{
+    opacity:0;
+    transition:opacity .6s ease;
+}
+
+.case__shot--extra.is-active{
+    opacity:1;
+}
+
+.case__dots{
+    position:absolute;
+    left:50%;
+    bottom:14px;
+    display:flex;
+    gap:6px;
+    padding:7px 9px;
+    border-radius:999px;
+    background:rgba(8,8,8,.55);
+    transform:translateX(-50%);
+    opacity:0;
+    transition:opacity .35s ease;
+    pointer-events:none;
+}
+
+.case__dots span{
+    width:18px;
+    height:3px;
+    border-radius:2px;
+    background:rgba(255,255,255,.35);
+    transition:background .35s ease;
+}
+
+.case__dots span.is-active{
+    background:var(--text);
+}
+
+.case__media.is-cycling .case__dots{
+    opacity:1;
 }
 
 @media (hover:hover){
@@ -186,10 +227,6 @@
         box-shadow:
             0 60px 130px -40px var(--case-glow),
             0 30px 70px rgba(0,0,0,.55);
-    }
-
-    .case__media:hover .case__shot{
-        object-position:bottom center;
     }
 }
 
