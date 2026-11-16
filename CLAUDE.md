@@ -20,6 +20,7 @@ assets/css/*.css      — стили по компонентам/секциям
 assets/js/*.js        — по одному модулю на эффект, запуск в app.js
 assets/img/           — изображения (webp), assets/img/cases/ — скриншоты кейсов
 assets/fonts/         — локальные woff2 (Onest, Fira Sans Extra Condensed, Cormorant Garamond)
+assets/docs/          — документы для посетителей (PDF согласия на обработку cookies)
 .htaccess             — HTTPS-редирект, сжатие, кэш, 404, запрет служебных файлов
 robots.txt, sitemap.xml
 .github/workflows/deploy.yml — деплой на хостинг Джино по SFTP при push в main
@@ -31,14 +32,14 @@ robots.txt, sitemap.xml
 
 ## Кэш-бастинг (важно)
 
-Все CSS/JS подключаются с `?v=ГГГГММДД` (сейчас `20261113`), в том числе внутри `style.css`
+Все CSS/JS подключаются с `?v=ГГГГММДД` (сейчас `20261116`), в том числе внутри `style.css`
 у каждого `@import`, а также в `404.html`. CSS/JS кэшируются браузером на месяц (`.htaccess`).
 
 - При любом изменении CSS или JS обновить версию **везде одной и той же датой** (сегодняшней):
   `index.html`, `404.html`, `assets/css/style.css`.
 - Вторая и следующие публикации за один день — с суффиксом (`20261112-2`, `20261112-3`):
   версия обязана отличаться от уже опубликованной, иначе браузеры возьмут старый кэш.
-- Удобно: `grep -rl "v=20261113" . | xargs sed -i 's/v=20261113/v=НОВАЯ_ДАТА/g'`.
+- Удобно: `grep -rl "v=20261116" . | xargs sed -i 's/v=20261116/v=НОВАЯ_ДАТА/g'`.
 - При содержательных изменениях обновить `<lastmod>` в `sitemap.xml`.
 
 ## HTML
@@ -57,6 +58,9 @@ robots.txt, sitemap.xml
 - Мета-теги, Open Graph, JSON-LD (`ProfessionalService`) и счётчик Яндекс.Метрики (id 112266666)
   в `<head>` не удалять. Контакты (email, телефон, Telegram `t.me/clydespb`) при изменении
   править во всех местах: JSON-LD, hero, футер, плавающая кнопка `.tg-float`.
+- Плашка cookies (`.cookie`, `cookie.js`) информирует о Метрике, которая запускается сразу;
+  согласие хранится в `localStorage` (`wd-cookie-consent`). Текст плашки и PDF
+  `assets/docs/cookies-policy.pdf` согласованы с владельцем — без его просьбы не менять.
 
 ## CSS
 
