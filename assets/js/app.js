@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initHeader();
 
+    initHeroViews();
+
     initMobileNav();
 
     initSpotlight();
