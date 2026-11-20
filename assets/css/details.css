@@ -167,3 +167,28 @@ body.nav-open .tg-float{
 body.nav-open .header{
     z-index:1060;
 }
+
+/* Hero intro */
+
+@keyframes heroRise{
+    from{
+        opacity:0;
+        transform:translateY(var(--rise, 30px));
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.hero__label,
+.hero h1,
+.hero p,
+.hero__buttons{
+    animation:heroRise .9s cubic-bezier(.22,1,.36,1) both;
+}
+
+.hero__label{ animation-delay:.1s; }
+.hero h1{ --rise:50px; animation-delay:.25s; }
+.hero p{ --rise:40px; animation-delay:.45s; }
+.hero__buttons{ animation-delay:.6s; }

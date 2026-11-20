@@ -4,6 +4,11 @@
 
         --container:1280px;
     }
+
+    .hero h1{
+
+        font-size:68px;
+    }
 }
 
 @media (max-width:1200px){
@@ -13,9 +18,9 @@
         width:min(100% - 48px,1140px);
     }
 
-    .hero__content{
+    .hero__container{
 
-        padding-left:24px;
+        gap:48px;
     }
 
     .nav{
@@ -27,26 +32,46 @@
 @media (max-width:992px){
 
     .hero{
-        grid-template-columns:1fr;
+
+        padding-top:140px;
+
+        min-height:auto;
+
+        padding-bottom:54vw;
+    }
+
+    .hero__container{
+
+        text-align:center;
     }
 
     .hero__content{
-        width:min(100%,680px);
+
+        max-width:100%;
+
         margin:0 auto;
-        padding:32px 24px;
     }
 
-    .hero__scene{
-        aspect-ratio:auto;
-        height:min(57vw,430px);
+    .hero h1,
+    .hero p{
+
+        margin-left:auto;
+
+        margin-right:auto;
     }
 
-    .hero__scene img{
-        object-position:center;
+    .hero__buttons{
+
+        justify-content:center;
     }
 }
 
 @media (max-width:768px){
+
+    .hero{
+
+        padding-bottom:min(70vw,430px);
+    }
 
     .nav{
 
@@ -71,45 +96,55 @@
 
 @media (max-width:576px){
 
-    :root{
-        --header:64px;
-    }
-
-    .header{
-        height:var(--header);
-    }
-
     .service h3{
 
         font-size:28px;
     }
 
-    .hero__content{
-        padding:12px 24px;
+    .hero h1{
+
+        font-size:44px;
+    }
+
+    .hero{
+
+        padding-top:124px;
+
+        padding-bottom:min(80vw,430px);
     }
 
     .hero__label{
-        margin-bottom:16px;
+
+        margin-bottom:22px;
     }
 
     .hero p{
-        margin-top:16px;
-        font-size:16px;
+
+        margin-top:24px;
+
+        font-size:17px;
+
+        line-height:1.65;
     }
 
     .hero__buttons{
-        flex-direction:column;
-        align-items:stretch;
-        gap:4px;
-        margin-top:20px;
+
+        flex-wrap:wrap;
+
+        gap:12px;
+
+        margin-top:36px;
     }
 
     .hero__buttons .button{
-        height:50px;
-    }
 
-    .hero__projects{
-        justify-content:center;
+        flex:1 1 140px;
+
+        height:56px;
+
+        padding:0 14px;
+
+        font-size:15px;
     }
 
     .button{
