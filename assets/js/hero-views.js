@@ -1,32 +1,22 @@
 function initHeroViews() {
-    const controls = document.querySelector(".hero__views");
-    const layer = document.querySelector(".hero__bg-image");
-    if (!controls || !layer) return;
+    const hero = document.querySelector(".hero");
+    const layer = hero?.querySelector(".hero__bg-image");
+    if (!layer) return;
 
-    const views = Array.from(controls.querySelectorAll(".hero__view"));
-    const play = controls.querySelector(".hero__play");
+    const scenes = [null, "crane", "overhead"];
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const pictures = new Map();
     let current = 0;
-    let request = 0;
     let timer;
+    let generation = 0;
     let visible = false;
-    let playing = !motion.matches;
 
     function schedule() {
         clearTimeout(timer);
-        if (playing && visible && !document.hidden) {
-            timer = setTimeout(() => select((current + 1) % views.length), 5000);
+        generation++;
+        if (visible && !document.hidden && !motion.matches) {
+            timer = setTimeout(advance, 5000);
         }
-    }
-
-    function setPlaying(enabled) {
-        playing = enabled;
-        play.classList.toggle("is-paused", !playing);
-        const label = playing ? "Приостановить смену ракурсов" : "Включить смену ракурсов";
-        play.setAttribute("aria-label", label);
-        play.title = label;
-        schedule();
     }
 
     function getPicture(scene) {
@@ -45,54 +35,33 @@ function initHeroViews() {
         return pictures.get(scene);
     }
 
-    async function select(index) {
-        const sequence = ++request;
-        clearTimeout(timer);
-        const scene = views[index].dataset.scene;
+    async function advance() {
+        const sequence = generation;
+        const index = (current + 1) % scenes.length;
+        const scene = scenes[index];
         const next = scene ? getPicture(scene) : null;
         if (next) {
             try {
                 await next.querySelector("img").decode();
             } catch {
-                if (sequence !== request) return;
+                if (sequence !== generation) return;
                 next.remove();
                 pictures.delete(scene);
-                setPlaying(false);
                 return;
             }
         }
-        if (sequence !== request) return;
+        if (sequence !== generation) return;
         for (const picture of pictures.values()) {
             picture.classList.toggle("is-active", picture === next);
         }
-        views[current].setAttribute("aria-pressed", "false");
-        views[index].setAttribute("aria-pressed", "true");
         current = index;
         schedule();
     }
 
-    views.forEach((button, index) => {
-        button.title = button.getAttribute("aria-label");
-        button.addEventListener("click", () => {
-            setPlaying(false);
-            select(index);
-        });
-    });
-    play.addEventListener("click", () => {
-        ++request;
-        setPlaying(!playing);
-    });
-    motion.addEventListener("change", () => {
-        if (motion.matches) {
-            ++request;
-            setPlaying(false);
-        }
-    });
+    motion.addEventListener("change", schedule);
     document.addEventListener("visibilitychange", schedule);
     new IntersectionObserver(([entry]) => {
         visible = entry.isIntersecting;
         schedule();
-    }).observe(controls.closest(".hero"));
-    setPlaying(playing);
-    controls.hidden = false;
+    }).observe(hero);
 }
