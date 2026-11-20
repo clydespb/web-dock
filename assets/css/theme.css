@@ -38,15 +38,6 @@
 
 /* Warm accent */
 
-.hero__label{
-    color:var(--accent-warm);
-}
-
-.hero__label::before{
-    background:var(--accent-warm);
-    box-shadow:0 0 18px var(--accent-warm);
-}
-
 .timeline::before{
     background:linear-gradient(90deg, var(--accent) 0%, var(--accent-warm) 100%);
     opacity:.45;
