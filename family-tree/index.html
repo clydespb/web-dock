@@ -3,10 +3,27 @@
 <style>
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:#203e34;background:#f8f6ef;font:16px/1.5 system-ui,sans-serif}button,input{font:inherit}button,a{touch-action:manipulation}button{cursor:pointer;color:inherit}a{color:inherit}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #b17c42;outline-offset:3px}.wrap{max-width:1220px;margin:auto;padding-inline:clamp(18px,5vw,70px)}header{background:#193c32;color:#f6f1dc}nav{height:65px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff32}nav a{text-decoration:none}nav a:hover{text-decoration:underline}.brand{font:21px Georgia,serif}.mark{display:inline-grid;place-items:center;width:34px;height:34px;border:1px solid #c8b57c;border-radius:50%;font:italic 24px Georgia;color:#e3d3a5;margin-right:10px}.ref{font-size:14px}.hero{position:relative;isolation:isolate;padding-block:58px 51px}.hero canvas{position:absolute;z-index:-1;right:-2%;top:0;width:52%;height:100%}.eyebrow,.tag{font:600 12px/1.4 system-ui,sans-serif;letter-spacing:.15em;text-transform:uppercase}.eyebrow{color:#daca99}h1,h2,h3{font-family:Georgia,'Times New Roman',serif;font-weight:400;line-height:1.04}h1{font-size:clamp(48px,6.4vw,85px);letter-spacing:-.05em;margin:19px 0 15px}h1 i{font-weight:400;color:#dfcfa1}.intro{color:#e1e4d7;max-width:460px;margin:0;font:18px/1.55 Georgia,serif}.years{display:flex;align-items:center;gap:12px;color:#dacb9b;font:italic 17px Georgia;margin-top:27px}.years span{width:63px;height:1px;background:#ae9c6a}main{padding-block:36px 45px}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:19px}h2{font-size:clamp(30px,4vw,44px);margin:0;letter-spacing:-.04em}.search{position:relative;width:min(310px,100%)}input{border:1px solid #c8caba;border-radius:6px;padding:10px 12px;background:#fffdf6;width:100%;color:#213f34}.results{position:absolute;z-index:5;right:0;top:100%;width:100%;max-height:300px;overflow:auto;background:#fffdf7;box-shadow:0 6px 25px #17372b28}.results button,.results p{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid #dddace;padding:9px 13px}.results small{display:block}.panel{border:1px solid #c6c8b7;border-radius:10px;overflow:hidden;background:#efeee4}.trail{padding:10px 17px;background:#f6f5ee;border-bottom:1px solid #d5d5c7;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px}.trail button{background:none;border:0;text-decoration:underline;text-underline-offset:3px}.chart{padding:25px max(16px,4%) 28px;background-image:radial-gradient(#a7b09955 .8px,transparent 1px);background-size:12px 12px;text-align:center}.node{background:#fffef8;border:1px solid #b1baa6;border-radius:7px;box-shadow:0 3px 8px #2b3f3010;display:block;padding:13px 15px;width:100%;max-width:330px;margin:auto;position:relative}.node strong{display:block;font:normal 21px/1.2 Georgia,serif;margin:5px 0}.node small{font-size:14px}.tag{color:#6b6d59;font-size:11px}.active{background:#244a3c;color:white;border-color:#244a3c}.active .tag{color:#e0d1a3}.children{display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));gap:0;position:relative;max-width:900px;margin:0 auto}.child{position:relative;padding:24px 6px 0;display:grid}.child:before{content:'';position:absolute;top:0;left:50%;height:24px;border-left:1px solid #87937c}.child:after{content:'';position:absolute;inset:0 0 auto;border-top:1px solid #87937c}.child.first:after{left:50%}.child.last:after{right:50%}.stem{width:1px;height:20px;margin:auto;background:#87937c}.child button{transition:transform .18s,box-shadow .18s}.child button:hover,.results button:hover{background:#f4f4e7}.child button:hover{transform:translateY(-2px);box-shadow:0 5px 12px #203e3420}.uncertain{border-style:dashed}.author{outline:2px solid #a48a4b}.meta{margin:15px auto 0;max-width:680px;color:#45574a;font-size:15px}.legend{display:flex;flex-wrap:wrap;gap:10px 24px;padding:12px 18px;font-size:13px;border-top:1px solid #d5d5c7;background:#f6f5ee}.swatch{display:inline-block;width:15px;height:11px;border:1px solid #819078;margin-right:6px}.dash{border-style:dashed}.gold{border:2px solid #a48a4b}details{margin-top:24px;border-block:1px solid #cccbbb;padding:17px 0}summary{cursor:pointer;font:23px Georgia}details p{max-width:830px}footer{font:14px Georgia;color:#546355;padding-bottom:24px}footer a{float:right}.row+.row{margin-top:20px}.row+.row .child:after,.row+.row .child:before{display:none}.row+.row .child{padding-top:0}
 @media(max-width:680px){.hero{padding-block:34px 30px}.hero canvas{width:53%;right:-3%;opacity:.42}.intro{max-width:72%;font-size:16px}.toolbar{align-items:stretch;flex-direction:column;gap:13px}.search{width:100%}.children{display:block;text-align:left;margin-left:10px;padding-left:17px;border-left:1px solid #87937c}.child{padding:7px 0!important}.child .node{text-align:left;max-width:none}.children .child:after,.row+.row .child:after{display:block;inset:50% auto auto -17px;width:17px}.children .child:before{display:none}.row+.row{margin-top:0}.stem{width:calc(50% - 10px);height:16px;margin-left:10px;border-right:1px solid #87937c;border-bottom:1px solid #87937c;background:none}.node strong{font-size:20px}.legend{gap:7px 14px}.hero h1{max-width:80%}.ref{font-size:13px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
-@media(min-width:681px){.many{display:grid;grid-template-columns:1fr 1fr;gap:12px 0;max-width:680px;background:linear-gradient(90deg,transparent calc(50% - .5px),#87937c 50%,transparent calc(50% + 1px))}.many .child{padding:0 15px}.many .child:before{display:none}.many .child:after{top:50%;width:15px;left:auto;right:0}.many .child:nth-child(even):after{left:0;right:auto}.many .node{margin:0}}</style></head><body>
+@media(min-width:681px){.many{display:grid;grid-template-columns:1fr 1fr;gap:12px 0;max-width:680px;background:linear-gradient(90deg,transparent calc(50% - .5px),#87937c 50%,transparent calc(50% + 1px))}.many .child{padding:0 15px}.many .child:before{display:none}.many .child:after{top:50%;width:15px;left:auto;right:0}.many .child:nth-child(even):after{left:0;right:auto}.many .node{margin:0}}
+.modes{display:inline-flex;gap:3px;padding:3px;margin:0 0 14px;border:1px solid #bdc3b4;border-radius:8px;background:#efeee5}
+.modes button{min-height:40px;padding:7px 17px;border:none;border-radius:5px;background:transparent}
+.modes button[aria-pressed=true]{background:#244a3c;color:#fff}
+.trail[hidden]{display:none}
+.chart.full{text-align:left;padding:clamp(12px,3vw,34px)}
+.outline,.outline ul{margin:0;padding:0;list-style:none}
+.outline{max-width:950px;margin:auto}
+.outline ul{padding-left:clamp(12px,2.4vw,36px);margin-left:7px}
+.outline li{position:relative;padding:4px 0}
+.outline ul>li:before,.outline ul>li:after{content:'';position:absolute;left:calc(-1 * clamp(12px,2.4vw,36px));width:clamp(12px,2.4vw,36px);pointer-events:none}
+.outline ul>li:before{top:0;bottom:0;border-left:1px solid #899783}
+.outline ul>li:last-child:before{height:25px}
+.outline ul>li:after{top:25px;border-top:1px solid #899783}
+.outline .node{display:inline-flex;width:auto;max-width:100%;margin:0;text-align:left;align-items:baseline;flex-wrap:wrap;gap:2px 10px;padding:9px 13px}
+.outline .node strong{font-size:18px;margin:0}
+.outline .node:hover{box-shadow:0 2px 7px #2b3f3038}
+</style></head><body>
 <header><div class="wrap"><nav><a class="brand" href="#top"><span class="mark">П</span>Семейный архив</a><a class="ref" href="#source">О рукописи</a></nav><div class="hero" id="top"><canvas id="oak" aria-hidden="true"></canvas><div class="eyebrow">Генеалогическое древо</div><h1>Род <i>Поддубных</i></h1><p class="intro">Материнская линия Поддубных, Гарпик и Норушевых по рукописи Михаила Григорьевича Норушева.</p><div class="years">1868<span></span>2023</div></div></div></header>
 <main class="wrap"><div class="toolbar"><h2 id="heading" tabindex="-1">Семейное древо</h2><div class="search"><input id="query" type="search" aria-label="Поиск по имени или году" placeholder="Поиск по имени или году"><div id="results" class="results" hidden></div></div></div>
-<div class="panel"><div class="trail" id="trail" aria-label="Путь к записи"></div><div id="chart" class="chart"></div><div class="legend"><span><i class="swatch"></i>Запись рукописи</span><span><i class="swatch dash"></i>Требует уточнения</span><span><i class="swatch gold"></i>Составитель</span></div></div>
+<div class="modes" role="group" aria-label="Вид древа"><button id="branchMode" aria-pressed="true">По ветвям</button><button id="allMode" aria-pressed="false">Всё древо</button></div><div class="panel"><div class="trail" id="trail" aria-label="Путь к записи"></div><div id="chart" class="chart"></div><div class="legend"><span><i class="swatch"></i>Запись рукописи</span><span><i class="swatch dash"></i>Требует уточнения</span><span><i class="swatch gold"></i>Составитель</span></div></div>
 <details id="source"><summary>О рукописи и её расшифровке</summary><p>Древо составил Михаил Григорьевич Норушев. Написание имён, даты и расположение записей следуют расшифровке семейного наброска.</p><p id="notes"></p></details></main><footer class="wrap">Семейный архив Поддубных <a href="/">WEB•DOCK</a></footer>
 <script>
 const N=(n,d,k,c,e)=>({n,d,k:k||[],c:c||'',e:e||''});
@@ -25,7 +42,7 @@ const T1=N('Агафья Абрамовна','1890 – 1968',[
   N('Михаил Григорьевич','р. 1929 · составитель',[
    N('Сергей','1955',[N('Лена (Нестеренко)','1976'),N('Олег','1976'),N('Антон','1985')]),
    N('Юрий','1958',[N('Таня','198?','','q')]),
-   N('Марина (Артемьева)','1959',[N('Катя','1986'),N('Михаил','1989',[N('Полина','2019'),N('Елизавета','2023'),N('Павел','2023')])]),
+   N('Марина (Артемьева)','1959',[N('Екатерина','1986',[N('Полина','2019'),N('Павел','2023')]),N('Михаил','1989',[N('Елизавета','2003')])]),
    N('Виктор','196?',[N('Ирина','1996')])
   ],'au','жена Мария (Ершакова), р. 1932')
  ])
@@ -53,6 +70,15 @@ const notes=new Map([[T1,'Поддубных → Гарпик → Норушев
 const entries=new Map();
 function index(node,parent,id){node.id=id;node.parent=parent;entries.set(id,node);node.k.forEach((child,i)=>index(child,node,id+'-'+(i+1)))}
 index(root,null,'rod');
+// Keep links shared before the correction pointing to the same people.
+const marina=T1.k[1].k.find(n=>n.c==='au').k.find(n=>n.n==='Марина (Артемьева)');
+const [ekaterina,mikhail]=marina.k;
+const [polina,pavel]=ekaterina.k;
+const [elizaveta]=mikhail.k;
+entries.delete(elizaveta.id);
+elizaveta.id=mikhail.id+'-2';
+entries.set(elizaveta.id,elizaveta);
+const previousLinks=new Map([[mikhail.id+'-1',polina],[mikhail.id+'-3',pavel]]);
 const nameOf=n=>titles.get(n)||n.n;
 function el(tag,cls,value){const element=document.createElement(tag);if(cls)element.className=cls;if(value)element.textContent=value;return element}
 const chart=document.querySelector('#chart'),trail=document.querySelector('#trail'),query=document.querySelector('#query'),results=document.querySelector('#results');
@@ -65,9 +91,38 @@ function card(node,selected){
  if(label)box.append(el('span','tag',label));box.append(el('strong','',nameOf(node)));if(node.d)box.append(el('small','',node.d));
  if(!selected)box.onclick=()=>go(node);return box
 }
+const branchMode=document.querySelector('#branchMode'),allMode=document.querySelector('#allMode');
+let currentNode=root;
+function setMode(full){
+ chart.classList.toggle('full',full);
+ trail.hidden=full;
+ branchMode.setAttribute('aria-pressed',String(!full));
+ allMode.setAttribute('aria-pressed',String(full));
+}
+function outlineItem(node){
+ const item=el('li');
+ item.append(card(node,false));
+ if(node.k.length){
+  const list=el('ul');
+  node.k.forEach(child=>list.append(outlineItem(child)));
+  item.append(list);
+ }
+ return item;
+}
+function renderAll(){
+ setMode(true);
+ const list=el('ul','outline');
+ list.setAttribute('aria-label','Полное генеалогическое древо');
+ list.append(outlineItem(root));
+ chart.replaceChildren(list);
+}
+branchMode.onclick=()=>go(currentNode);
+allMode.onclick=()=>{location.hash='all';renderAll()};
 function render(node){
+ currentNode=node;
+ setMode(false);
  chart.replaceChildren();trail.replaceChildren();
- const path=ancestors(node);path.forEach((p,i)=>{if(i)trail.append(' › ');const item=el(p===node?'span':'button','',p===root?'Всё древо':nameOf(p));if(p!==node)item.onclick=()=>go(p);trail.append(item)});
+ const path=ancestors(node);path.forEach((p,i)=>{if(i)trail.append(' › ');const item=el(p===node?'span':'button','',p===root?'Родоначальник':nameOf(p));if(p!==node)item.onclick=()=>go(p);trail.append(item)});
  chart.append(card(node,true));
  if(node.k.length){chart.append(el('div','stem'));const row=el('div','children'+(node.k.length>3?' many':''));row.style.setProperty('--cols',node.k.length);node.k.forEach((child,j)=>{const slot=el('div','child'+(j===0?' first':'')+(j===node.k.length-1?' last':''));slot.append(card(child,false));row.append(slot)});chart.append(row)}
 
@@ -76,7 +131,7 @@ function render(node){
  if(!node.k.length&&!info.length)info.push('На этой записи линия в рукописи заканчивается.');
  if(info.length)chart.append(el('p','meta',info.join(' ')));
 }
-function route(){if(location.hash==='#source'){document.querySelector('details').open=true;return}render(entries.get(location.hash.slice(1))||root)}
+function route(){if(location.hash==='#source'){document.querySelector('details').open=true;return}const id=location.hash.slice(1);if(id==='all'){renderAll();return}render(entries.get(id)||previousLinks.get(id)||root)}
 document.querySelector('.ref').onclick=()=>document.querySelector('details').open=true;
 render(root);route();window.addEventListener('hashchange',route);
 const normalize=text=>text.toLocaleLowerCase('ru').replaceAll('ё','е');
