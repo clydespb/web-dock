@@ -20,12 +20,26 @@
 .outline .node{display:inline-flex;width:auto;max-width:100%;margin:0;text-align:left;align-items:baseline;flex-wrap:wrap;gap:2px 10px;padding:9px 13px}
 .outline .node strong{font-size:18px;margin:0}
 .outline .node:hover{box-shadow:0 2px 7px #2b3f3038}
+
+.modes{flex-wrap:wrap;max-width:100%}.atlas-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;background:#f6f5ee;border-bottom:1px solid #d5d5c7}
+.atlas-tools button,.atlas-tools select{font:inherit;font-size:14px;color:#23483a;border:1px solid #b8c0af;background:#fffdf6;padding:8px 11px;border-radius:6px;min-height:40px}
+.atlas-tools button:hover{background:#e5e9dd}.zoom-tools{display:flex;align-items:center;gap:6px}.zoom-tools button{font-size:20px;line-height:1;width:40px}.zoom-tools output{min-width:40px;text-align:center;font-size:14px}
+#atlas{display:block;width:100%;height:clamp(300px,54vh,600px);background:#f4f2e7;touch-action:none;cursor:grab;user-select:none}#atlas:active{cursor:grabbing}
+.tile{cursor:pointer}.tile rect{fill:#fffdf6;stroke:#879785;stroke-width:1.6}.tile.compiler rect{stroke:#aa8747;stroke-width:3}.tile:hover rect,.tile:focus rect{stroke:#946c39;stroke-width:3}.tile.lineage rect{fill:#e2ebdb;stroke:#406c50}.tile.picked rect{fill:#244a3c;stroke:#ba9656;stroke-width:3}.tile.picked text{fill:white}.plate-name{font:17px Georgia,serif;fill:#203e34}.plate-date{font:12px system-ui;fill:#455749}.plate-tag{font:600 10px system-ui;letter-spacing:1px;fill:#6c603d}.wire{fill:none;stroke:#7d8979;stroke-width:2}.wire.marriage{stroke:#9b7852;stroke-width:3}.wire.unsure{stroke-dasharray:6 5}.wire.lineage{stroke:#366949;stroke-width:4}
+#atlasStatus{padding:10px 16px;margin:0;background:#e6ebdf;font-size:15px}.atlas-tools.lower{border-top:1px solid #d5d5c7;justify-content:space-between;font-size:13px}#paper{display:none}.chart[hidden],#classicPanel[hidden]{display:none}
+@media(max-width:540px){.modes button{padding-inline:9px;font-size:14px}.atlas-tools{gap:5px;padding:8px}.atlas-tools button,.atlas-tools select{padding-inline:8px}}
+.tile[data-branch="0"] .plate-tag{fill:#786137}.tile[data-branch="1"] .plate-tag{fill:#675676}.tile[data-branch="2"] .plate-tag{fill:#446a78}.tile.picked .plate-tag{fill:#f4dfb1}
+@page archivePoster{size:841mm 594mm;margin:14mm}@page archiveBranch{size:A4 landscape;margin:10mm}
+@media print{#paper{page:archiveBranch}#paper.poster{page:archivePoster}body:has(#classicPanel:not([hidden]))>:not(#paper){display:none!important}body:has(#classicPanel:not([hidden])) #paper{display:block}#paper h1{font-size:24pt;margin:0}#paper p{font-size:11pt}#paper svg{display:block;width:100%;height:68vh}#paper .wire.lineage{stroke:#7d8979;stroke-width:2}#paper{break-inside:avoid;print-color-adjust:exact}}
 </style></head><body>
 <header><div class="wrap"><nav><a class="brand" href="#top"><span class="mark">П</span>Семейный архив</a><a class="ref" href="#source">О рукописи</a></nav><div class="hero" id="top"><canvas id="oak" aria-hidden="true"></canvas><div class="eyebrow">Генеалогическое древо</div><h1>Род <i>Поддубных</i></h1><p class="intro">Материнская линия Поддубных, Гарпик и Норушевых по рукописи Михаила Григорьевича Норушева.</p><div class="years">1868<span></span>2023</div></div></div></header>
 <main class="wrap"><div class="toolbar"><h2 id="heading" tabindex="-1">Семейное древо</h2><div class="search"><input id="query" type="search" aria-label="Поиск по имени или году" placeholder="Поиск по имени или году"><div id="results" class="results" hidden></div></div></div>
-<div class="modes" role="group" aria-label="Вид древа"><button id="branchMode" aria-pressed="true">По ветвям</button><button id="allMode" aria-pressed="false">Всё древо</button></div><div class="panel"><div class="trail" id="trail" aria-label="Путь к записи"></div><div id="chart" class="chart"></div><div class="legend"><span><i class="swatch"></i>Запись рукописи</span><span><i class="swatch dash"></i>Требует уточнения</span><span><i class="swatch gold"></i>Составитель</span></div></div>
+<div class="modes" role="group" aria-label="Вид древа"><button id="branchMode" aria-pressed="true">По ветвям</button><button id="allMode" aria-pressed="false">Всё древо</button><button id="classicMode" aria-pressed="false">Классическая схема</button></div><div class="panel"><div class="trail" id="trail" aria-label="Путь к записи"></div><div id="chart" class="chart"></div><section id="classicPanel" hidden aria-label="Классическая схема">
+<div class="atlas-tools"><div class="zoom-tools"><button id="zoomOut" aria-label="Уменьшить масштаб">−</button><output id="zoomValue" aria-label="Масштаб"></output><button id="zoomIn" aria-label="Увеличить масштаб">+</button></div><button id="fitAtlas">Вписать древо</button><button id="toPerson">К человеку</button><select id="jumpBranch" aria-label="Перейти к ветви"><option value="">К ветви…</option><option value="0">I · Агафья</option><option value="1">II · Федосья</option><option value="2">III · Илья</option></select></div>
+<svg id="atlas" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Родственные связи по поколениям"></svg>
+<p id="atlasStatus" aria-live="polite"></p><div class="atlas-tools lower"><span>Пунктир — спорная связь · ? — требует уточнения</span><div><select id="printScope" aria-label="Область печати"><option value="whole">Всё древо</option><option value="selected">Выбранная ветвь</option></select> <button id="printAtlas">Печать</button></div></div></section><div class="legend"><span><i class="swatch"></i>Запись рукописи</span><span><i class="swatch dash"></i>Требует уточнения</span><span><i class="swatch gold"></i>Составитель</span></div></div>
 <details id="source"><summary>О рукописи и её расшифровке</summary><p>Древо составил Михаил Григорьевич Норушев. Написание имён, даты и расположение записей следуют расшифровке семейного наброска.</p><p id="notes"></p></details></main><footer class="wrap">Семейный архив Поддубных <a href="/">WEB•DOCK</a></footer>
-<script>
+<section id="paper"></section><script>
 const N=(n,d,k,c,e)=>({n,d,k:k||[],c:c||'',e:e||''});
 const T1=N('Агафья Абрамовна','1890 – 1968',[
  N('Дети от 1-го брака (Гарпик)','',[
@@ -93,10 +107,12 @@ function card(node,selected){
 }
 const branchMode=document.querySelector('#branchMode'),allMode=document.querySelector('#allMode');
 let currentNode=root;
-function setMode(full){
+function setMode(full,classic=false){
+ classicPanel.hidden=!classic;chart.hidden=classic;
+ classicButton.setAttribute('aria-pressed',String(classic));
  chart.classList.toggle('full',full);
- trail.hidden=full;
- branchMode.setAttribute('aria-pressed',String(!full));
+ trail.hidden=full||classic;
+ branchMode.setAttribute('aria-pressed',String(!full&&!classic));
  allMode.setAttribute('aria-pressed',String(full));
 }
 function outlineItem(node){
@@ -131,13 +147,220 @@ function render(node){
  if(!node.k.length&&!info.length)info.push('На этой записи линия в рукописи заканчивается.');
  if(info.length)chart.append(el('p','meta',info.join(' ')));
 }
-function route(){if(location.hash==='#source'){document.querySelector('details').open=true;return}const id=location.hash.slice(1);if(id==='all'){renderAll();return}render(entries.get(id)||previousLinks.get(id)||root)}
+const classicButton=document.querySelector('#classicMode');
+const classicPanel=document.querySelector('#classicPanel');
+const atlas=document.querySelector('#atlas');
+const statusLine=document.querySelector('#atlasStatus');
+const svgNS='http://www.w3.org/2000/svg';
+const tileWidth=174,tileHeight=85,stepX=198,stepY=165;
+const positions=new Map(),edges=[],photos=new Map();
+const author=marina.parent;
+const wife=N('Мария (Ершакова)','р. 1932 · жена составителя');
+wife.id='spouse-maria';wife.parent=author;
+let atlasWidth=0,atlasHeight=0,selection=null,zoom=1,originX=0,originY=0;
+function svgElement(tag,attrs){
+ const e=document.createElementNS(svgNS,tag);
+ for(const [key,value] of Object.entries(attrs))e.setAttribute(key,value);
+ return e;
+}
+// Each family occupies its own horizontal interval at every generation.
+function familyLayout(n){
+ let members=[n],groups=[{from:n,children:n.k}];
+ if(n===T1){
+  members=[n.k[0],n,n.k[1]];
+  groups=n.k.map(partner=>({from:partner,children:partner.k,partner}));
+ }else if(n===T3){
+  members=[n,n.k[0]];
+  groups=[{from:n,partner:n.k[0],children:n.k.slice(1),uncertain:true}];
+ }else if(n===author){members=[n,wife]}
+ for(const group of groups){
+  group.layouts=group.children.map(familyLayout);
+  group.width=group.layouts.reduce((sum,c)=>sum+c.width,0);
+ }
+ const width=Math.max(members.length*stepX,groups.reduce((sum,g)=>sum+g.width,0));
+ return {n,members,groups,width};
+}
+function placeFamily(f,left,depth){
+ const y=30+depth*stepY,mid=left+f.width/2;
+ const center=f.n===T1?left+Math.max(stepX*1.5,Math.min(f.width-stepX*1.5,f.groups[0].width)):mid;
+ f.members.forEach((n,i)=>positions.set(n,{x:center+(i-(f.members.length-1)/2)*stepX,y}));
+ atlasHeight=Math.max(atlasHeight,y+tileHeight+30);
+ let start=left+(f.width-f.groups.reduce((sum,g)=>sum+g.width,0))/2;
+ for(const g of f.groups){
+  for(const child of g.layouts){placeFamily(child,start,depth+1);start+=child.width}
+ }
+}
+function connect(d,targets,uncertain=false,marriage=false){
+ const path=svgElement('path',{d,class:'wire'+(uncertain?' unsure':'')+(marriage?' marriage':'')});
+ atlas.append(path);edges.push({path,targets});
+}
+function drawLinks(f){
+ const p=positions.get(f.n),midY=p.y+tileHeight/2;
+ for(const member of f.members.filter(n=>n!==f.n)){
+  const q=positions.get(member);
+  connect('M '+Math.min(q.x,p.x)+' '+midY+' H '+Math.max(q.x,p.x),[member],member===T1.k[0],true);
+ }
+ for(const g of f.groups){
+  const from=g.partner?(positions.get(g.partner).x+p.x)/2:p.x;
+  const startY=g.partner?midY:p.y+tileHeight;
+  const bus=p.y+tileHeight+39;
+  for(const child of g.children){
+   const q=positions.get(child);
+   connect('M '+from+' '+startY+' V '+bus+' H '+q.x+' V '+q.y,[child],g.uncertain||g.from===T1.k[0]);
+  }
+  g.layouts.forEach(drawLinks);
+ }
+}
+function svgText(parent,txt,x,y,cls){
+ const label=svgElement('text',{x,y,class:cls,'text-anchor':'middle'});label.textContent=txt;parent.append(label);
+}
+function drawTile(n,p){
+ const branchIndex=root.k.indexOf(ancestors(n)[1]);
+ const group=svgElement('g',{'data-branch':branchIndex,class:'tile'+(n.c==='au'?' compiler':''),transform:'translate('+p.x+' '+p.y+')',role:'button',tabindex:'0','aria-label':[nameOf(n),n.d].filter(Boolean).join(', ')});
+ const title=svgElement('title',{});title.textContent=[nameOf(n),n.d,n.e].filter(Boolean).join(' · ');group.append(title);
+ group.append(svgElement('rect',{x:-tileWidth/2,y:0,width:tileWidth,height:tileHeight,rx:7}));
+ const branch=[T1,T2,T3].indexOf(n);
+ const tag=n===root?'РОДОНАЧАЛЬНИК':branch>=0?'ВЕТВЬ '+['I','II','III'][branch]:n.c==='au'?'СОСТАВИТЕЛЬ':n===T1.k[0]?'ПЕРВЫЙ БРАК':n===T1.k[1]?'ВТОРОЙ БРАК':'';
+ svgText(group,tag,0,14,'plate-tag');
+ const lines=[''];
+ for(const word of nameOf(n).split(' ')){
+  if((lines.at(-1)+' '+word).trim().length>19&&lines.at(-1))lines.push(word);
+  else lines[lines.length-1]=(lines.at(-1)+' '+word).trim();
+ }
+ lines.forEach((s,i)=>svgText(group,s,0,42-(lines.length-1)*8+i*17,'plate-name'));
+ svgText(group,n.d||'',0,72,'plate-date');
+ if(n.c==='q'||/[?]/.test(n.n+(n.d||'')))svgText(group,'?',73,15,'plate-tag');
+ group.onclick=()=>chooseClassic(n);
+ group.onkeydown=e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();chooseClassic(n)}};
+ group.onfocus=()=>{if(group.matches(':focus-visible'))centerOn(n)};
+ atlas.append(group);photos.set(n,group);
+}
+function viewport(){
+ const rect=atlas.getBoundingClientRect();
+ return {w:rect.width||800,h:rect.height||510};
+}
+function fitScale(){const {w,h}=viewport();return Math.min(w/atlasWidth,h/atlasHeight,1)}
+function paintView(){
+ const {w,h}=viewport(),vw=w/zoom,vh=h/zoom;
+ originX=vw>=atlasWidth?(atlasWidth-vw)/2:Math.min(atlasWidth-vw,Math.max(0,originX));
+ originY=vh>=atlasHeight?(atlasHeight-vh)/2:Math.min(atlasHeight-vh,Math.max(0,originY));
+ atlas.setAttribute('viewBox',[originX,originY,vw,vh].join(' '));
+ document.querySelector('#zoomValue').textContent=Math.round(zoom*100)+'%';
+}
+function fitAtlas(){zoom=fitScale();originX=originY=0;paintView()}
+function scaleAt(next,x,y){
+ const safe=Math.max(fitScale(),Math.min(3,next));
+ originX+=x/zoom-x/safe;originY+=y/zoom-y/safe;zoom=safe;paintView();
+}
+function centerOn(n){
+ const {w,h}=viewport(),p=positions.get(n);
+ zoom=Math.max(zoom,Math.min(1.35,w/(tileWidth*1.45)));
+ originX=p.x-w/(2*zoom);originY=p.y+tileHeight/2-h/(2*zoom);paintView();
+}
+function selectTile(n){
+ selection=n;const lineage=new Set(ancestors(n));
+ for(const [person,tile] of photos){
+  tile.classList.toggle('lineage',lineage.has(person));tile.classList.toggle('picked',person===n);
+  tile.setAttribute('aria-pressed',String(person===n));
+ }
+ for(const edge of edges)edge.path.classList.toggle('lineage',edge.targets.some(t=>lineage.has(t)));
+ // Highlighted lines sit above coincident sibling lines but below the cards.
+ const firstCard=atlas.querySelector('.tile');
+ for(const edge of edges.filter(e=>e.path.classList.contains('lineage')))atlas.insertBefore(edge.path,firstCard);
+ statusLine.textContent=[nameOf(n),n.d,n.e,notes.get(n),n.parent===T3&&n!==T3.k[0]?'Принадлежность к родителям в рукописи неясна.':n.c==='q'?'Запись требует сверки с рукописью.':''].filter(Boolean).join(' · ');
+ centerOn(n);
+}
+function chooseClassic(n){
+ query.value='';results.hidden=true;
+ const hash='#classic/'+n.id;
+ if(location.hash===hash)selectTile(n);else location.hash=hash;
+}
+function renderClassic(id){
+ const entering=classicPanel.hidden;
+ setMode(false,true);
+ chart.hidden=true;classicPanel.hidden=false;
+ if(!positions.size){
+  const layout=familyLayout(root);atlasWidth=layout.width+40;placeFamily(layout,20,0);
+  drawLinks(layout);for(const [n,p] of positions)drawTile(n,p);
+ }
+ const n=id===wife.id?wife:entries.get(id)||previousLinks.get(id);
+ if(n){if(n!==wife)currentNode=n;selectTile(n)}
+ else{
+  selection=null;
+  for(const tile of photos.values()){tile.classList.remove('picked','lineage');tile.setAttribute('aria-pressed','false')}
+  for(const e of edges)e.path.classList.remove('lineage');
+  statusLine.textContent='Выберите человека на схеме или найдите его по имени.';
+  fitAtlas();
+ }
+ if(entering)atlas.scrollLeft=0;
+}
+classicButton.onclick=()=>{if(location.hash==='#classic')renderClassic();else location.hash='classic'};
+document.querySelector('#fitAtlas').onclick=fitAtlas;
+document.querySelector('#toPerson').onclick=()=>chooseClassic(selection||currentNode);
+for(const [id,factor] of [['#zoomIn',1.5],['#zoomOut',1/1.5]]){
+ document.querySelector(id).onclick=()=>{const {w,h}=viewport();scaleAt(zoom*factor,w/2,h/2)};
+}
+const pointers=new Map();let moved=false,distance=0;
+function touchPoint(e){const r=atlas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top}}
+function span(){const [a,b]=pointers.values();return Math.hypot(a.x-b.x,a.y-b.y)}
+atlas.onpointerdown=e=>{
+ if(e.button!==0)return;
+ if(!pointers.size)moved=false;
+ const p=touchPoint(e);pointers.set(e.pointerId,p);
+ if(pointers.size===2){distance=span();moved=true}
+};
+atlas.onpointermove=e=>{
+ const last=pointers.get(e.pointerId);if(!last)return;
+ const now=touchPoint(e),dx=now.x-last.x,dy=now.y-last.y;
+ if(!moved&&Math.hypot(dx,dy)<4)return;
+ moved=true;atlas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,now);
+ if(pointers.size===2){
+  const [a,b]=pointers.values(),next=span();
+  if(distance&&next)scaleAt(zoom*next/distance,(a.x+b.x)/2,(a.y+b.y)/2);
+  distance=next;
+ }else{originX-=dx/zoom;originY-=dy/zoom;paintView()}
+};
+function endPointer(e){pointers.delete(e.pointerId);distance=0}
+window.addEventListener('pointerup',endPointer);window.addEventListener('pointercancel',endPointer);
+atlas.addEventListener('click',e=>{if(moved&&e.detail){e.stopPropagation();moved=false}},true);
+atlas.addEventListener('wheel',e=>{
+ if(!e.ctrlKey&&!e.metaKey)return;e.preventDefault();
+ const p=touchPoint(e);scaleAt(zoom*Math.exp(-e.deltaY*.008),p.x,p.y);
+},{passive:false});
+window.addEventListener('resize',()=>{if(!classicPanel.hidden){if(selection)centerOn(selection);else fitAtlas()}});
+function preparePrint(){
+ const mode=document.querySelector('#printScope').value;
+ const start=mode==='selected'?(selection||currentNode):root;
+ const visible=[...positions.keys()].filter(n=>ancestors(n).includes(start));
+ const paper=document.querySelector('#paper');
+ paper.classList.toggle('poster',start===root);
+ paper.replaceChildren(el('h1','','Род Поддубных'),el('p','',start===root?'Генеалогическое древо':nameOf(start)));
+ const copy=atlas.cloneNode(false);copy.removeAttribute('id');copy.removeAttribute('tabindex');
+ const included=new Set(visible);
+ for(const e of edges){
+  if(e.targets.some(t=>included.has(t)&&t!==start))copy.append(e.path.cloneNode(false));
+ }
+ for(const n of visible){const tile=photos.get(n).cloneNode(true);tile.removeAttribute('tabindex');tile.classList.remove('picked','lineage');copy.append(tile)}
+ const pts=visible.map(n=>positions.get(n));
+ const left=Math.min(...pts.map(p=>p.x))-tileWidth/2-20,top=Math.min(...pts.map(p=>p.y))-20;
+ const right=Math.max(...pts.map(p=>p.x))+tileWidth/2+20,bottom=Math.max(...pts.map(p=>p.y))+tileHeight+20;
+ copy.setAttribute('viewBox',[left,top,right-left,bottom-top].join(' '));
+ paper.append(copy,el('p','','Составитель — Михаил Григорьевич Норушев. Пунктир — спорная связь. Знак вопроса — запись требует уточнения.'));
+}
+document.querySelector('#printAtlas').onclick=()=>{preparePrint();window.print()};
+window.addEventListener('beforeprint',()=>{if(!classicPanel.hidden)preparePrint()});
+
+document.querySelector('#jumpBranch').onchange=e=>{
+ if(e.target.value!=='')chooseClassic(root.k[Number(e.target.value)]);
+ e.target.value='';
+};
+function route(){if(location.hash==='#source'){document.querySelector('details').open=true;return}const id=location.hash.slice(1);if(id==='classic'||id.startsWith('classic/')){renderClassic(id.split('/')[1]);return}if(id==='all'){renderAll();return}render(entries.get(id)||previousLinks.get(id)||root)}
 document.querySelector('.ref').onclick=()=>document.querySelector('details').open=true;
 render(root);route();window.addEventListener('hashchange',route);
 const normalize=text=>text.toLocaleLowerCase('ru').replaceAll('ё','е');
 query.oninput=()=>{const term=normalize(query.value.trim());results.replaceChildren();results.hidden=!term;if(!term)return;
- for(const n of entries.values()){if(!normalize([n.n,nameOf(n),n.d,n.e,notes.get(n)].filter(Boolean).join(' ')).includes(term))continue;
- const button=el('button','',nameOf(n));button.append(el('small','',[n.d,n.parent?nameOf(n.parent):'Родоначальник'].filter(Boolean).join(' · ')));button.onclick=()=>go(n);results.append(button)}
+ for(const n of (classicPanel.hidden?entries.values():[...entries.values(),wife])){if(!normalize([n.n,nameOf(n),n.d,n.e,notes.get(n)].filter(Boolean).join(' ')).includes(term))continue;
+ const button=el('button','',nameOf(n));button.append(el('small','',[n.d,n.parent?nameOf(n.parent):'Родоначальник'].filter(Boolean).join(' · ')));button.onclick=()=>classicPanel.hidden?go(n):chooseClassic(n);results.append(button)}
  if(!results.children.length)results.append(el('p','','Совпадений нет'))};
 query.onfocus=()=>query.oninput();document.addEventListener('pointerdown',e=>{if(!e.target.closest('.search'))results.hidden=true});document.addEventListener('focusin',e=>{if(!e.target.closest('.search'))results.hidden=true});document.addEventListener('keydown',e=>{if(e.key==='Escape'){results.hidden=true}if(e.key==='ArrowDown'&&e.target===query&&!results.hidden){e.preventDefault();results.querySelector('button')?.focus()}});
 /* Тональная ботаническая иллюстрация с постоянной композицией. */
