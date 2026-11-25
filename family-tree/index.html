@@ -31,68 +31,155 @@
 .tile[data-branch="0"] .plate-tag{fill:#786137}.tile[data-branch="1"] .plate-tag{fill:#675676}.tile[data-branch="2"] .plate-tag{fill:#446a78}.tile.picked .plate-tag{fill:#f4dfb1}
 @page archivePoster{size:841mm 594mm;margin:14mm}@page archiveBranch{size:A4 landscape;margin:10mm}
 @media print{#paper{page:archiveBranch}#paper.poster{page:archivePoster}body:has(#classicPanel:not([hidden]))>:not(#paper){display:none!important}body:has(#classicPanel:not([hidden])) #paper{display:block}#paper h1{font-size:24pt;margin:0}#paper p{font-size:11pt}#paper svg{display:block;width:100%;height:68vh}#paper .wire.lineage{stroke:#7d8979;stroke-width:2}#paper{break-inside:avoid;print-color-adjust:exact}}
-</style></head><body>
+.independent{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:12px auto}.independent .node{margin:0}.back-root{margin-top:16px;padding:8px 14px;border:1px solid #879785;background:#fffdf6;border-radius:6px}</style></head><body>
 <header><div class="wrap"><nav><a class="brand" href="#top"><span class="mark">П</span>Семейный архив</a><a class="ref" href="#source">О рукописи</a></nav><div class="hero" id="top"><canvas id="oak" aria-hidden="true"></canvas><div class="eyebrow">Генеалогическое древо</div><h1>Род <i>Поддубных</i></h1><p class="intro">Материнская линия Поддубных, Гарпик и Норушевых по рукописи Михаила Григорьевича Норушева.</p><div class="years">1868<span></span>2023</div></div></div></header>
 <main class="wrap"><div class="toolbar"><h2 id="heading" tabindex="-1">Семейное древо</h2><div class="search"><input id="query" type="search" aria-label="Поиск по имени или году" placeholder="Поиск по имени или году"><div id="results" class="results" hidden></div></div></div>
 <div class="modes" role="group" aria-label="Вид древа"><button id="branchMode" aria-pressed="true">По ветвям</button><button id="allMode" aria-pressed="false">Всё древо</button><button id="classicMode" aria-pressed="false">Классическая схема</button></div><div class="panel"><div class="trail" id="trail" aria-label="Путь к записи"></div><div id="chart" class="chart"></div><section id="classicPanel" hidden aria-label="Классическая схема">
-<div class="atlas-tools"><div class="zoom-tools"><button id="zoomOut" aria-label="Уменьшить масштаб">−</button><output id="zoomValue" aria-label="Масштаб"></output><button id="zoomIn" aria-label="Увеличить масштаб">+</button></div><button id="fitAtlas">Вписать древо</button><button id="toPerson">К человеку</button><select id="jumpBranch" aria-label="Перейти к ветви"><option value="">К ветви…</option><option value="0">I · Агафья</option><option value="1">II · Федосья</option><option value="2">III · Илья</option></select></div>
+<div class="atlas-tools"><div class="zoom-tools"><button id="zoomOut" aria-label="Уменьшить масштаб">−</button><output id="zoomValue" aria-label="Масштаб"></output><button id="zoomIn" aria-label="Увеличить масштаб">+</button></div><button id="fitAtlas">Вписать древо</button><button id="toPerson">К человеку</button><select id="jumpBranch" aria-label="Перейти к ветви"><option value="">К ветви…</option><option value="0">I · Агафья</option><option value="1">II · Федосья</option><option value="2">III · Илья</option><option value="3">Марина Поддубных</option><option value="4">Степанида</option></select></div>
 <svg id="atlas" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Родственные связи по поколениям"></svg>
 <p id="atlasStatus" aria-live="polite"></p><div class="atlas-tools lower"><span>Пунктир — спорная связь · ? — требует уточнения</span><div><select id="printScope" aria-label="Область печати"><option value="whole">Всё древо</option><option value="selected">Выбранная ветвь</option></select> <button id="printAtlas">Печать</button></div></div></section><div class="legend"><span><i class="swatch"></i>Запись рукописи</span><span><i class="swatch dash"></i>Требует уточнения</span><span><i class="swatch gold"></i>Составитель</span></div></div>
 <details id="source"><summary>О рукописи и её расшифровке</summary><p>Древо составил Михаил Григорьевич Норушев. Написание имён, даты и расположение записей следуют расшифровке семейного наброска.</p><p id="notes"></p></details></main><footer class="wrap">Семейный архив Поддубных <a href="/">WEB•DOCK</a></footer>
 <section id="paper"></section><script>
 const N=(n,d,k,c,e)=>({n,d,k:k||[],c:c||'',e:e||''});
-const T1=N('Агафья Абрамовна','1890 – 1968',[
- N('Дети от 1-го брака (Гарпик)','',[
-  N('Прокоп','1915 – 1935(?)',[N('Леонтий','1930(?)',[N('дочь','1953','',''),N('дочь','1959','','')],'q')])
- ],'q'),
- N('Григорий Карпикович Норушев','р. 1895 · 2-й муж',[
-  N('Николай','1917 – 1950',[N('Людмила','1938 – 1992',[N('Павел','1960')]),N('сын','имя неразборчиво','','q')]),
-  N('Алексей','1919',[N('Наталья','195?',[N('Вепдя(?)','1977','','q')]),N('Елена','1959 – 1980',[N('Мила(?)','1979','','q')])]),
-  N('Таисия (Чернова?)','1922 – 1982',[
-   N('Владимир','1940',[N('Вера','1971'),N('Таня','1973'),N('сын','1992(?)','','q')]),
-   N('Виктор','1944',[N('Саша','1970')])]),
-  N('Пётр','1925 – 1940'),
-  N('Василий','1927 – 1965',[N('Сергей','1965(?)',[N('сын','1981','','q')]),N('Саша','1968'),N('два сына','1955 – 1957','','q')]),
-  N('Михаил Григорьевич','р. 1929 · составитель',[
-   N('Сергей','1955',[N('Лена (Нестеренко)','1976'),N('Олег','1976'),N('Антон','1985')]),
-   N('Юрий','1958',[N('Таня','198?','','q')]),
-   N('Марина (Артемьева)','1959',[N('Екатерина','1986',[N('Полина','2019'),N('Павел','2023')]),N('Михаил','1989',[N('Елизавета','2003')])]),
-   N('Виктор','196?',[N('Ирина','1996')])
-  ],'au','жена Мария (Ершакова), р. 1932')
- ])
+// Identifiers remain stable when manuscript corrections move a person.
+function record(id,n,d,k,c,e){return {...N(n,d,k,c,e),id}}
+const root=record("rod", "Абрам Ильич Поддубных", "1868 – 1935", [
+  record("rod-1", "Агафья Абрамовна", "1890 – 1968", [
+    record("rod-1-1", "Дети от 1-го брака (Гарпик)", "", [
+      record("rod-1-1-1", "Прокоп", "1915 – 1935", [
+        record("rod-1-1-1-1", "Леонтий", "1930", [
+          record("rod-1-1-1-1-1", "дочь", "1953"),
+          record("rod-1-1-1-1-2", "дочь", "1959")
+        ], "q")
+      ], "", "Даты Прокопа и Леонтия переданы по рукописи. Хронология отцовства требует подтверждения.")
+    ], "q"),
+    record("rod-1-2", "Григорий Карпикович Норушев", "р. 1895 · 2-й муж", [
+      record("rod-1-2-1", "Николай", "1917 – 1950", [
+        record("rod-1-2-1-1", "Людмила", "1938 – 1992", [
+          record("rod-1-2-1-1-1", "Павел", "1960")
+        ]),
+        record("rod-1-2-1-2", "сын", "", [], "", "В рукописи подписан «сын внебрачный». Имя не указано.")
+      ]),
+      record("rod-1-2-2", "Алексей", "1919", [
+        record("rod-1-2-2-1", "Наталья", "1950 (?)", [
+          record("rod-1-2-2-1-1", "Володя (?)", "1977", [], "q")
+        ]),
+        record("rod-1-2-2-2", "Елена", "1959 – 1980", [
+          record("rod-1-2-2-2-1", "Мила(?)", "1979", [], "q")
+        ])
+      ]),
+      record("rod-1-2-3", "Таисия (Чернова?)", "1922 – 1982", [
+        record("rod-1-2-3-1", "Владимир", "1940", [
+          record("rod-1-2-3-1-1", "Вера", "1971", [
+            record("rod-1-2-3-1-3", "сын", "1992")
+          ]),
+          record("rod-1-2-3-1-2", "Таня", "1973")
+        ]),
+        record("rod-1-2-3-2", "Виктор", "1944", [
+          record("rod-1-2-3-2-1", "Саша", "1970")
+        ])
+      ]),
+      record("rod-1-2-4", "Пётр", "1925 – 1940"),
+      record("rod-1-2-5", "Василий", "1927 – 1965", [
+        record("rod-1-2-5-1", "Сергей", "1956 (?)", [
+          record("rod-1-2-5-1-1", "сын", "1981", [], "q")
+        ]),
+        record("rod-1-2-5-2", "Саша", "1968"),
+        record("rod-1-2-5-3", "Сын", "", [], "q", "В рукописи «сын и дочь», рядом годы 1957 и 1955. Соответствие дат не установлено."),
+        record("daughter-vasily", "Дочь", "", [], "q", "В рукописи «сын и дочь», рядом годы 1957 и 1955. Соответствие дат не установлено.")
+      ]),
+      record("rod-1-2-6", "Михаил Григорьевич", "р. 1929 · составитель", [
+        record("rod-1-2-6-1", "Сергей", "1955", [
+          record("rod-1-2-6-1-1", "Лена (Нестеренко)", "1976", [
+            record("vovik-lena", "Вовик (?)", "2005 (?)", [], "q")
+          ]),
+          record("rod-1-2-6-1-2", "Олег", "1976", [
+            record("sergey-oleg", "Сергей", "", [], "", "В рукописи подписан «сын». Год рождения читается неуверенно."),
+            record("vitya-oleg", "Витя (пасынок)", "", [], "", "Пасынок Олега.")
+          ]),
+          record("rod-1-2-6-1-3", "Антон", "1985")
+        ]),
+        record("rod-1-2-6-2", "Юрий", "1958", [
+          record("rod-1-2-6-2-1", "Таня", "1980 (?)", [], "q")
+        ]),
+        record("rod-1-2-6-3", "Марина (Артемьева)", "1959", [
+          record("rod-1-2-6-3-1", "Екатерина", "1986", [
+            record("rod-1-2-6-3-1-1", "Полина", "2019"),
+            record("rod-1-2-6-3-1-2", "Павел", "2023")
+          ]),
+          record("rod-1-2-6-3-2", "Михаил", "1989", [
+            record("rod-1-2-6-3-2-2", "Елизавета", "2023")
+          ])
+        ]),
+        record("rod-1-2-6-4", "Виктор", "196?", [
+          record("rod-1-2-6-4-1", "Ирина", "1996")
+        ])
+      ], "au", "жена Мария (Ершакова), р. 1932")
+    ])
+  ]),
+  record("rod-2", "Федосья Стенёва", "1898 – 1960"),
+  record("rod-3", "Илья", "1900 – 1973", [
+    record("rod-3-8", "Анна (Куликовская?)", "1922 – 1985", [
+      record("rod-3-9-1", "Зинаида", "1944", [
+        record("rod-3-9-1-1", "Леонид", "1973 – 1994", [
+          record("nastya-leonid", "Настя", "")
+        ])
+      ])
+    ], "q"),
+    record("rod-3-9", "Мария", "1927", [
+      record("rod-3-10-1", "Наталья", "1962", [
+        record("kolya-natalya", "Коля", "1981 (?)", [], "q")
+      ], "q", "Продолжение подписано «Коля, 81» и ещё одним именем с годом. Второе чтение и расположение линий требуют уточнения.")
+    ], "q"),
+    record("rod-3-10", "Параскева", "1930", [
+      record("sasha-paraskeva", "Саша", "1956 (?)", [], "q", "На этой линии также подписаны Ира и Анна. Порядок родства требует подтверждения.")
+    ], "q"),
+    record("rod-3-11", "Павлина", "1934", [
+      record("son-pavlina", "Сын", ""),
+      record("daughter-pavlina", "Дочь", "")
+    ], "q", "На продолжении ветви читаются имена Андрей, Алина и Вера. Распределение потомков и исправленные даты требуют сверки."),
+    record("rod-3-12", "Павел", "1937", [
+      record("volodya-pavel", "Володя", "1968", [
+        record("rod-3-12-2", "Катя", "1992", [], "q")
+      ]),
+      record("rod-3-12-1", "Таня", "1966", [
+        record("maks-tanya", "Макс (?)", "1988", [], "q")
+      ], "q")
+    ], "q")
+  ])
 ]);
-const T2=N('Федосья Стенёва','1898 – 1960');
-const T3=N('Илья','1900 – 1973',[
- N('Степанида (Куликич)','р. 1895 · жена','','q'),
- N('Анна','1914 – 1934','','q'),
- N('Елена','1919','','q'),
- N('Григорий','1926 – 1975','','q'),
- N('Надежда (Дерюшенко?)','1928',[N('Валерий','1953',[N('сын'),N('дочь')]),N('Лиля','1956',[N('сын'),N('дочь')])],'q'),
- N('Валентина','1930','','q'),
- N('Иван','1933 – 1944','','q'),
- N('Анна (Куликовская?)','1922 – 1985',[N('Олена','','','q')],'q'),
- N('Мария','1927',[N('Зинаида','1944',[N('Леонид','1973 – 1994')])],'q'),
- N('Параскева','1930',[N('Наталья','1962','','q')],'q'),
- N('Павлина','1934','','q'),
- N('Павел','1937',[N('Таня','1966','','q'),N('Катя','1992','','q')],'q','потомков см. приписки в оригинале')
-]);
-const branchNotes=["1890 – 1968. Дети от первого брака (Гарпик) и от второго брака (Григорий Карпикович Норушев, р. 1895).", "1898 – 1960. В рукописи потомки не показаны.", "1900 – 1973. Жена — Степанида (Куликич), р. 1895. Левая «ствольная» линия рукописи: принадлежность части детей родителям на схеме нечёткая."];
-document.querySelector('#notes').textContent="Подпись «дочь Мария Поддубных-Дарченко» у ствола слева; ряд синих приписок у потомков Павла (1937) и Параскевы; фамилия Таисии (1922–1982) прочитана предположительно («Чернова»); дата рождения Прокопа и сына Леонтия (рукопись: 1915–1935 и 1930) выглядит противоречивой. Всё это помечено пунктиром и лучше сверить с оригиналом.";
-const root=N('Абрам Ильич Поддубных','1868 – 1935',[T1,T2,T3]);
-const titles=new Map([[T1,'Агафья Абрамовна'],[T2,'Федосья Абрамовна Стенёва'],[T3,'Илья Абрамович Поддубных']]);
-const notes=new Map([[T1,'Поддубных → Гарпик → Норушева. '+branchNotes[0]],[T2,branchNotes[1]],[T3,branchNotes[2]]]);
+const centralMarina=record("marina-poddubnykh", "Марина Поддубных", "", [
+  record("rod-3-2", "Анна", "1914 – 1934", [], "q"),
+  record("rod-3-3", "Елена", "1919", [], "q"),
+  record("rod-3-4", "Григорий", "1926 – 1975", [], "q"),
+  record("rod-3-5", "Надежда Сухорукова", "1928", [
+    record("rod-3-5-1", "Валерий", "1953", [
+      record("rod-3-5-1-1", "сын", ""),
+      record("rod-3-5-1-2", "дочь", "")
+    ]),
+    record("rod-3-5-2", "Лиля", "1956", [
+      record("rod-3-5-2-1", "сын", ""),
+      record("rod-3-5-2-2", "дочь", "")
+    ])
+  ], "q", "Над именем указана ещё одна фамилия, предположительно Дорошенко."),
+  record("rod-3-6", "Валентина", "1930", [], "q"),
+  record("rod-3-7", "Иван", "1933 – 1944", [], "q")
+], "q", "В рукописи подписана «дочь Марина». Вторая часть фамилии и соединение с основной семьёй требуют уточнения. Валентина и Иван расположены у верхней развилки этой линии.");
+const stepanida=record("rod-3-1", "Степанида (Кулинич?)", "р. 1895", [
+  record("rod-3-8-1", "Олена", "", [], "q")
+], "q", "Родство с Абрамом и Ильёй требует подтверждения. Написание фамилии предположительное.");
+const independent=[centralMarina,stepanida];
+const forest=[root,...independent];
+const [T1,T2,T3]=root.k;
+const uncertainEdges=new Set([...T3.k,...centralMarina.k.slice(-2)]);
+const titles=new Map([[T2,'Федосья Абрамовна Стенёва'],[T3,'Илья Абрамович Поддубных']]);
+const notes=new Map([[T1,'Поддубных → Гарпик → Норушева. Дети показаны отдельно по двум бракам.'],[T2,'В рукописи потомки не показаны.'],[T3,'Положение записей на левой линии требует семейного подтверждения.']]);
+document.querySelector('#notes').textContent='Линии Марины Поддубных и Степаниды показаны отдельно: их точное родство с Абрамом и Ильёй требует подтверждения. Имена, годы и связи с неуверенным чтением отмечены в карточках. Для детей Марины Артемьевой и их потомков учтены уточнения семьи.';
 const entries=new Map();
-function index(node,parent,id){node.id=id;node.parent=parent;entries.set(id,node);node.k.forEach((child,i)=>index(child,node,id+'-'+(i+1)))}
-index(root,null,'rod');
-// Keep links shared before the correction pointing to the same people.
-const marina=T1.k[1].k.find(n=>n.c==='au').k.find(n=>n.n==='Марина (Артемьева)');
-const [ekaterina,mikhail]=marina.k;
-const [polina,pavel]=ekaterina.k;
-const [elizaveta]=mikhail.k;
-entries.delete(elizaveta.id);
-elizaveta.id=mikhail.id+'-2';
-entries.set(elizaveta.id,elizaveta);
-const previousLinks=new Map([[mikhail.id+'-1',polina],[mikhail.id+'-3',pavel]]);
+function index(node,parent){node.parent=parent;entries.set(node.id,node);node.k.forEach(child=>index(child,node))}
+forest.forEach(node=>index(node,null));
+const author=T1.k[1].k.find(n=>n.c==='au');
+const previousLinks=new Map([["rod-1-2-6-3-2-1",entries.get("rod-1-2-6-3-1-1")],["rod-1-2-6-3-2-3",entries.get("rod-1-2-6-3-1-2")]]);
 const nameOf=n=>titles.get(n)||n.n;
 function el(tag,cls,value){const element=document.createElement(tag);if(cls)element.className=cls;if(value)element.textContent=value;return element}
 const chart=document.querySelector('#chart'),trail=document.querySelector('#trail'),query=document.querySelector('#query'),results=document.querySelector('#results');
@@ -101,7 +188,7 @@ function go(node){query.value='';results.hidden=true;location.hash=node.id;if(lo
 function card(node,selected){
  const box=el(selected?'div':'button','node'+(selected?' active':'')+(node.c==='q'?' uncertain':'')+(node.c==='au'?' author':''));
  const branch=root.k.indexOf(node);
- const label=node===root?'Родоначальник':branch>=0?'Ветвь '+['I','II','III'][branch]:node.c==='au'?'Составитель':node.c==='q'?'Требует уточнения':null;
+ const label=independent.includes(node)?'Отдельная линия':node===root?'Родоначальник':branch>=0?'Ветвь '+['I','II','III'][branch]:node.c==='au'?'Составитель':node.c==='q'?'Требует уточнения':null;
  if(label)box.append(el('span','tag',label));box.append(el('strong','',nameOf(node)));if(node.d)box.append(el('small','',node.d));
  if(!selected)box.onclick=()=>go(node);return box
 }
@@ -129,7 +216,7 @@ function renderAll(){
  setMode(true);
  const list=el('ul','outline');
  list.setAttribute('aria-label','Полное генеалогическое древо');
- list.append(outlineItem(root));
+ forest.forEach(tree=>list.append(outlineItem(tree)));
  chart.replaceChildren(list);
 }
 branchMode.onclick=()=>go(currentNode);
@@ -146,6 +233,11 @@ function render(node){
  if(node===root)info.push('Выберите ветвь, чтобы проследить родственные связи.');
  if(!node.k.length&&!info.length)info.push('На этой записи линия в рукописи заканчивается.');
  if(info.length)chart.append(el('p','meta',info.join(' ')));
+ if(node===root){
+  chart.append(el('p','meta','Отдельные линии рукописи · связь с родоначальником уточняется'));
+  const box=el('div','independent');independent.forEach(tree=>box.append(card(tree,false)));chart.append(box);
+ }
+ if(ancestors(node)[0]!==root){const home=el('button','back-root','К обзору древа');home.onclick=()=>go(root);chart.append(home)}
 }
 const classicButton=document.querySelector('#classicMode');
 const classicPanel=document.querySelector('#classicPanel');
@@ -154,7 +246,7 @@ const statusLine=document.querySelector('#atlasStatus');
 const svgNS='http://www.w3.org/2000/svg';
 const tileWidth=174,tileHeight=85,stepX=198,stepY=165;
 const positions=new Map(),edges=[],photos=new Map();
-const author=marina.parent;
+
 const wife=N('Мария (Ершакова)','р. 1932 · жена составителя');
 wife.id='spouse-maria';wife.parent=author;
 let atlasWidth=0,atlasHeight=0,selection=null,zoom=1,originX=0,originY=0;
@@ -169,9 +261,6 @@ function familyLayout(n){
  if(n===T1){
   members=[n.k[0],n,n.k[1]];
   groups=n.k.map(partner=>({from:partner,children:partner.k,partner}));
- }else if(n===T3){
-  members=[n,n.k[0]];
-  groups=[{from:n,partner:n.k[0],children:n.k.slice(1),uncertain:true}];
  }else if(n===author){members=[n,wife]}
  for(const group of groups){
   group.layouts=group.children.map(familyLayout);
@@ -206,7 +295,7 @@ function drawLinks(f){
   const bus=p.y+tileHeight+39;
   for(const child of g.children){
    const q=positions.get(child);
-   connect('M '+from+' '+startY+' V '+bus+' H '+q.x+' V '+q.y,[child],g.uncertain||g.from===T1.k[0]);
+   connect('M '+from+' '+startY+' V '+bus+' H '+q.x+' V '+q.y,[child],uncertainEdges.has(child)||g.from===T1.k[0]);
   }
   g.layouts.forEach(drawLinks);
  }
@@ -220,7 +309,7 @@ function drawTile(n,p){
  const title=svgElement('title',{});title.textContent=[nameOf(n),n.d,n.e].filter(Boolean).join(' · ');group.append(title);
  group.append(svgElement('rect',{x:-tileWidth/2,y:0,width:tileWidth,height:tileHeight,rx:7}));
  const branch=[T1,T2,T3].indexOf(n);
- const tag=n===root?'РОДОНАЧАЛЬНИК':branch>=0?'ВЕТВЬ '+['I','II','III'][branch]:n.c==='au'?'СОСТАВИТЕЛЬ':n===T1.k[0]?'ПЕРВЫЙ БРАК':n===T1.k[1]?'ВТОРОЙ БРАК':'';
+ const tag=independent.includes(n)?'ОТДЕЛЬНАЯ ЛИНИЯ':n===root?'РОДОНАЧАЛЬНИК':branch>=0?'ВЕТВЬ '+['I','II','III'][branch]:n.c==='au'?'СОСТАВИТЕЛЬ':n===T1.k[0]?'ПЕРВЫЙ БРАК':n===T1.k[1]?'ВТОРОЙ БРАК':'';
  svgText(group,tag,0,14,'plate-tag');
  const lines=[''];
  for(const word of nameOf(n).split(' ')){
@@ -267,7 +356,7 @@ function selectTile(n){
  // Highlighted lines sit above coincident sibling lines but below the cards.
  const firstCard=atlas.querySelector('.tile');
  for(const edge of edges.filter(e=>e.path.classList.contains('lineage')))atlas.insertBefore(edge.path,firstCard);
- statusLine.textContent=[nameOf(n),n.d,n.e,notes.get(n),n.parent===T3&&n!==T3.k[0]?'Принадлежность к родителям в рукописи неясна.':n.c==='q'?'Запись требует сверки с рукописью.':''].filter(Boolean).join(' · ');
+ statusLine.textContent=[nameOf(n),n.d,n.e,notes.get(n),uncertainEdges.has(n)?'Принадлежность к родителям в рукописи неясна.':n.c==='q'?'Запись требует сверки с рукописью.':''].filter(Boolean).join(' · ');
  centerOn(n);
 }
 function chooseClassic(n){
@@ -280,8 +369,12 @@ function renderClassic(id){
  setMode(false,true);
  chart.hidden=true;classicPanel.hidden=false;
  if(!positions.size){
-  const layout=familyLayout(root);atlasWidth=layout.width+40;placeFamily(layout,20,0);
-  drawLinks(layout);for(const [n,p] of positions)drawTile(n,p);
+  let left=20;
+  for(const tree of forest){
+   const layout=familyLayout(tree);
+   placeFamily(layout,left,0);drawLinks(layout);left+=layout.width+stepX;
+  }
+  atlasWidth=left-stepX+20;for(const [n,p] of positions)drawTile(n,p);
  }
  const n=id===wife.id?wife:entries.get(id)||previousLinks.get(id);
  if(n){if(n!==wife)currentNode=n;selectTile(n)}
@@ -331,7 +424,7 @@ window.addEventListener('resize',()=>{if(!classicPanel.hidden){if(selection)cent
 function preparePrint(){
  const mode=document.querySelector('#printScope').value;
  const start=mode==='selected'?(selection||currentNode):root;
- const visible=[...positions.keys()].filter(n=>ancestors(n).includes(start));
+ const visible=[...positions.keys()].filter(n=>mode!=='selected'||ancestors(n).includes(start));
  const paper=document.querySelector('#paper');
  paper.classList.toggle('poster',start===root);
  paper.replaceChildren(el('h1','','Род Поддубных'),el('p','',start===root?'Генеалогическое древо':nameOf(start)));
@@ -351,7 +444,7 @@ document.querySelector('#printAtlas').onclick=()=>{preparePrint();window.print()
 window.addEventListener('beforeprint',()=>{if(!classicPanel.hidden)preparePrint()});
 
 document.querySelector('#jumpBranch').onchange=e=>{
- if(e.target.value!=='')chooseClassic(root.k[Number(e.target.value)]);
+ if(e.target.value!=='')chooseClassic([...root.k,...independent][Number(e.target.value)]);
  e.target.value='';
 };
 function route(){if(location.hash==='#source'){document.querySelector('details').open=true;return}const id=location.hash.slice(1);if(id==='classic'||id.startsWith('classic/')){renderClassic(id.split('/')[1]);return}if(id==='all'){renderAll();return}render(entries.get(id)||previousLinks.get(id)||root)}
@@ -360,7 +453,7 @@ render(root);route();window.addEventListener('hashchange',route);
 const normalize=text=>text.toLocaleLowerCase('ru').replaceAll('ё','е');
 query.oninput=()=>{const term=normalize(query.value.trim());results.replaceChildren();results.hidden=!term;if(!term)return;
  for(const n of (classicPanel.hidden?entries.values():[...entries.values(),wife])){if(!normalize([n.n,nameOf(n),n.d,n.e,notes.get(n)].filter(Boolean).join(' ')).includes(term))continue;
- const button=el('button','',nameOf(n));button.append(el('small','',[n.d,n.parent?nameOf(n.parent):'Родоначальник'].filter(Boolean).join(' · ')));button.onclick=()=>classicPanel.hidden?go(n):chooseClassic(n);results.append(button)}
+ const button=el('button','',nameOf(n));button.append(el('small','',[n.d,n.parent?nameOf(n.parent):independent.includes(n)?'Отдельная линия':'Родоначальник'].filter(Boolean).join(' · ')));button.onclick=()=>classicPanel.hidden?go(n):chooseClassic(n);results.append(button)}
  if(!results.children.length)results.append(el('p','','Совпадений нет'))};
 query.onfocus=()=>query.oninput();document.addEventListener('pointerdown',e=>{if(!e.target.closest('.search'))results.hidden=true});document.addEventListener('focusin',e=>{if(!e.target.closest('.search'))results.hidden=true});document.addEventListener('keydown',e=>{if(e.key==='Escape'){results.hidden=true}if(e.key==='ArrowDown'&&e.target===query&&!results.hidden){e.preventDefault();results.querySelector('button')?.focus()}});
 /* Тональная ботаническая иллюстрация с постоянной композицией. */
