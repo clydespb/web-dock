@@ -20,4 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initCookieBanner();
 
+    initContactForm();
+
 });

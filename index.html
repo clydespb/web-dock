@@ -50,7 +50,7 @@
 
     <link rel="preload" href="assets/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 
-    <link rel="stylesheet" href="assets/css/style.css?v=20261126-2">
+    <link rel="stylesheet" href="assets/css/style.css?v=20261126-3">
 <!-- Yandex.Metrika counter -->
 <script>
     (function(m,e,t,r,i,k,a){
@@ -878,21 +878,72 @@
 
             </p>
 
-            <form class="project-form ym-hide-content" id="project-form" action="/api/contact.php" method="post">
-                <label>Как вам ответить?
-                    <select name="channel"><option value="email">Email</option><option value="telegram">Telegram</option></select>
-                </label>
-                <label><span id="contact-label">Ваш email</span>
-                    <input class="ym-disable-keys" name="contact" type="email" autocomplete="email" maxlength="254" required>
-                </label>
-                <label>Что хотите сделать?
-                    <textarea class="ym-disable-keys" name="message" rows="4" maxlength="4000" placeholder="Например, нужен каталог оборудования с запросом цены" required></textarea>
-                </label>
-                <div id="captcha-container" class="smart-captcha" data-sitekey="ysc1_3bl6tkVwzuigyE8l2tukpj869QdI96bBDHyEghUgf17f4815"></div>
-                <small><a href="/privacy.html" target="_blank" rel="noopener noreferrer">Политика обработки персональных данных</a></small>
-                <button class="button" type="submit" disabled>Отправить заявку</button>
-                <span role="status" aria-live="polite"></span>
-                <small>Также можно <a href="mailto:clyde@nxt.ru">написать на почту</a> или <a href="https://t.me/clydespb">в Telegram</a>.</small>
+            <form class="project-form ym-hide-content" id="project-form" action="/api/contact.php" method="post" novalidate>
+
+                <div class="project-form__body">
+
+                    <fieldset class="project-form__channel">
+
+                        <legend class="project-form__label">Как вам ответить?</legend>
+
+                        <div class="project-form__switch">
+
+                            <label>
+                                <input type="radio" name="channel" value="email" checked>
+                                <span>Email</span>
+                            </label>
+
+                            <label>
+                                <input type="radio" name="channel" value="telegram">
+                                <span>Telegram</span>
+                            </label>
+
+                        </div>
+
+                    </fieldset>
+
+                    <label class="project-form__field">
+                        <span class="project-form__label" id="contact-label">Ваш email</span>
+                        <input class="ym-disable-keys" name="contact" type="email" autocomplete="email" maxlength="254" required>
+                    </label>
+
+                    <label class="project-form__field">
+                        <span class="project-form__label">Что хотите сделать?</span>
+                        <textarea class="ym-disable-keys" name="message" rows="4" maxlength="4000" placeholder="Например, нужен каталог оборудования с запросом цены" required></textarea>
+                    </label>
+
+                    <div id="captcha-container" class="smart-captcha" data-sitekey="ysc1_3bl6tkVwzuigyE8l2tukpj869QdI96bBDHyEghUgf17f4815"></div>
+
+                    <div class="project-form__alert" role="alert" hidden></div>
+
+                    <button class="button project-form__submit" type="submit" disabled>
+                        <span class="project-form__submit-text">Отправить заявку</span>
+                    </button>
+
+                    <p class="project-form__note">
+                        <a href="/privacy.html" target="_blank" rel="noopener noreferrer">Политика обработки персональных данных</a>
+                    </p>
+
+                    <p class="project-form__note">
+                        Также можно <a href="mailto:clyde@nxt.ru">написать на почту</a> или <a href="https://t.me/clydespb" target="_blank" rel="noopener noreferrer">в&nbsp;Telegram</a>.
+                    </p>
+
+                </div>
+
+                <div class="project-form__success" role="status" tabindex="-1" hidden>
+
+                    <span class="project-form__success-icon" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+
+                    <h3 class="project-form__success-title">Заявка отправлена</h3>
+
+                    <p class="project-form__success-text"></p>
+
+                    <button class="button button--ghost project-form__again" type="button">Отправить ещё одну</button>
+
+                </div>
+
             </form>
 
         </div>
@@ -1045,19 +1096,19 @@
 
 </aside>
 
-<script src="assets/js/header.js?v=20261126-2"></script>
-<script src="assets/js/nav.js?v=20261126-2"></script>
-<script src="assets/js/hero.js?v=20261126-2"></script>
-<script src="assets/js/hero-views.js?v=20261126-2"></script>
-<script src="assets/js/animations.js?v=20261126-2"></script>
-<script src="assets/js/spotlight.js?v=20261126-2"></script>
-<script src="assets/js/lines.js?v=20261126-2"></script>
-<script src="assets/js/floating.js?v=20261126-2"></script>
-<script src="assets/js/magnetic.js?v=20261126-2"></script>
-<script src="assets/js/cases.js?v=20261126-2"></script>
-<script src="assets/js/cookie.js?v=20261126-2"></script>
-<script src="assets/js/contact.js?v=20261126-2"></script>
-<script src="assets/js/app.js?v=20261126-2"></script>
+<script src="assets/js/header.js?v=20261126-3"></script>
+<script src="assets/js/nav.js?v=20261126-3"></script>
+<script src="assets/js/hero.js?v=20261126-3"></script>
+<script src="assets/js/hero-views.js?v=20261126-3"></script>
+<script src="assets/js/animations.js?v=20261126-3"></script>
+<script src="assets/js/spotlight.js?v=20261126-3"></script>
+<script src="assets/js/lines.js?v=20261126-3"></script>
+<script src="assets/js/floating.js?v=20261126-3"></script>
+<script src="assets/js/magnetic.js?v=20261126-3"></script>
+<script src="assets/js/cases.js?v=20261126-3"></script>
+<script src="assets/js/cookie.js?v=20261126-3"></script>
+<script src="assets/js/contact.js?v=20261126-3"></script>
+<script src="assets/js/app.js?v=20261126-3"></script>
 
 </body>
 </html>
