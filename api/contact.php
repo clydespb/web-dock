@@ -4,8 +4,15 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 ini_set('display_errors', '0');
-// Private directory outside the web root (Jino layout: ~/domains/web-dock.ru/api and ~/private/web-dock).
-$privateDir = dirname(__DIR__, 3) . '/private/web-dock';
+// Private directory outside the web root. On Jino the site lives in ~/domains/web-dock.ru,
+// and the settings in ~/domains/private/web-dock; ~/private/web-dock is kept as a fallback.
+$privateDir = dirname(__DIR__, 2) . '/private/web-dock';
+foreach ([dirname(__DIR__, 2), dirname(__DIR__, 3)] as $base) {
+    if (is_file($base . '/private/web-dock/contact.php')) {
+        $privateDir = $base . '/private/web-dock';
+        break;
+    }
+}
 
 // Short, non-secret reason codes go to the client; details go only to the private log.
 function finish(int $status, string $reason = '', string $detail = ''): void {
