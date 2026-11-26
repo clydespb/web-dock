@@ -50,7 +50,7 @@
 
     <link rel="preload" href="assets/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 
-    <link rel="stylesheet" href="assets/css/style.css?v=20261120-4">
+    <link rel="stylesheet" href="assets/css/style.css?v=20261126">
 <!-- Yandex.Metrika counter -->
 <script>
     (function(m,e,t,r,i,k,a){
@@ -63,6 +63,7 @@
     ym(112266666, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
 </script>
 <!-- /Yandex.Metrika counter -->
+<script src="https://smartcaptcha.yandexcloud.net/captcha.js" defer></script>
 </head>
 
 <body>
@@ -97,7 +98,7 @@
 
         </nav>
 
-        <a href="#contacts" class="button button--header">
+        <a href="#project-form" class="button button--header">
             Обсудить проект
         </a>
 
@@ -129,7 +130,7 @@
 
     </nav>
 
-    <a href="#contacts" class="button mobile-nav__cta">Обсудить проект</a>
+    <a href="#project-form" class="button mobile-nav__cta">Обсудить проект</a>
 
     <div class="mobile-nav__footer">
 
@@ -186,7 +187,7 @@
 
             <div class="hero__buttons">
 
-                <a href="#contacts"
+                <a href="#project-form"
                    class="button">
 
                     Обсудить проект
@@ -877,12 +878,21 @@
 
             </p>
 
-            <a href="#contacts"
-               class="button">
-
-                Обсудить проект
-
-            </a>
+            <form class="project-form ym-hide-content" id="project-form" action="/api/contact.php" method="post">
+                <label>Как вам ответить?
+                    <select name="channel"><option value="email">Email</option><option value="telegram">Telegram</option></select>
+                </label>
+                <label><span id="contact-label">Ваш email</span>
+                    <input class="ym-disable-keys" name="contact" type="email" autocomplete="email" maxlength="254" required>
+                </label>
+                <label>Что хотите сделать?
+                    <textarea class="ym-disable-keys" name="message" rows="4" maxlength="4000" placeholder="Например, нужен каталог оборудования с запросом цены" required></textarea>
+                </label>
+                <div id="captcha-container" class="smart-captcha" data-sitekey="ysc1_3bl6tkVwzuigyE8l2tukpj869QdI96bBDHyEghUgf17f4815"></div>
+                <button class="button" type="submit" disabled>Отправить заявку</button>
+                <span role="status" aria-live="polite"></span>
+                <small>Также можно <a href="mailto:clyde@nxt.ru">написать на почту</a> или <a href="https://t.me/clydespb">в Telegram</a>.</small>
+            </form>
 
         </div>
 
@@ -1034,18 +1044,19 @@
 
 </aside>
 
-<script src="assets/js/header.js?v=20261120-4"></script>
-<script src="assets/js/nav.js?v=20261120-4"></script>
-<script src="assets/js/hero.js?v=20261120-4"></script>
-<script src="assets/js/hero-views.js?v=20261120-4"></script>
-<script src="assets/js/animations.js?v=20261120-4"></script>
-<script src="assets/js/spotlight.js?v=20261120-4"></script>
-<script src="assets/js/lines.js?v=20261120-4"></script>
-<script src="assets/js/floating.js?v=20261120-4"></script>
-<script src="assets/js/magnetic.js?v=20261120-4"></script>
-<script src="assets/js/cases.js?v=20261120-4"></script>
-<script src="assets/js/cookie.js?v=20261120-4"></script>
-<script src="assets/js/app.js?v=20261120-4"></script>
+<script src="assets/js/header.js?v=20261126"></script>
+<script src="assets/js/nav.js?v=20261126"></script>
+<script src="assets/js/hero.js?v=20261126"></script>
+<script src="assets/js/hero-views.js?v=20261126"></script>
+<script src="assets/js/animations.js?v=20261126"></script>
+<script src="assets/js/spotlight.js?v=20261126"></script>
+<script src="assets/js/lines.js?v=20261126"></script>
+<script src="assets/js/floating.js?v=20261126"></script>
+<script src="assets/js/magnetic.js?v=20261126"></script>
+<script src="assets/js/cases.js?v=20261126"></script>
+<script src="assets/js/cookie.js?v=20261126"></script>
+<script src="assets/js/contact.js?v=20261126"></script>
+<script src="assets/js/app.js?v=20261126"></script>
 
 </body>
 </html>
