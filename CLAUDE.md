@@ -61,7 +61,7 @@ robots.txt, sitemap.xml
   править во всех местах: JSON-LD, hero, футер, плавающая кнопка `.tg-float`.
 - Форма заявки (`#project-form`, `contact.js`) отправляет POST в `api/contact.php`: SmartCaptcha →
   письмо через SMTP Яндекса. Ключи и путь к SQLite лежат вне репозитория, в
-  `~/private/web-dock/contact.php` на Джино; туда же пишется лог ошибок `contact-error.log`.
+  `~/domains/private/web-dock/contact.php` на Джино (рядом с папкой сайта `~/domains/web-dock.ru`); туда же пишется лог ошибок `contact-error.log`.
   Ответ сервера содержит код причины (`error`: `config`, `db`, `captcha_unavailable`,
   `captcha_failed`, `smtp` и др.) — секреты в ответ и в лог не выводить.
 - Плашка cookies (`.cookie`, `cookie.js`) информирует о Метрике, которая запускается сразу;
