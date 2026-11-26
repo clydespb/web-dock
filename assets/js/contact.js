@@ -17,6 +17,32 @@ function initContactForm() {
 
     if (!contact || !message || !alertBox || !submit || !body || !success) return;
 
+    // SmartCaptcha (~70 KB) is loaded only when the form gets close to the screen.
+    let captchaRequested = false;
+
+    function loadCaptcha() {
+        if (captchaRequested) return;
+        captchaRequested = true;
+        const script = document.createElement("script");
+        script.src = "https://smartcaptcha.yandexcloud.net/captcha.js";
+        script.defer = true;
+        document.head.appendChild(script);
+    }
+
+    if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(entries => {
+            if (entries.some(entry => entry.isIntersecting)) {
+                observer.disconnect();
+                loadCaptcha();
+            }
+        }, { rootMargin: "800px 0px" });
+        observer.observe(form);
+    } else {
+        loadCaptcha();
+    }
+
+    form.addEventListener("focusin", loadCaptcha);
+
     const SUBMIT_TEXT = submitText.textContent;
 
     const ERRORS = {
