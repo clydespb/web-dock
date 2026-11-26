@@ -27,9 +27,12 @@ if ((!$email && !$telegram) || strlen($contact) > 254 || $message === '' ||
     strlen($message) > 16000 || $token === '' || strlen($token) > 12000) finish(422);
 
 try {
-    $secret = getenv('SMARTCAPTCHA_SERVER_KEY');
-    $password = getenv('YANDEX_SMTP_APP_PASSWORD');
-    $dbPath = getenv('CONTACT_STATE_DB');
+    // Jino layout: ~/domains/web-dock.ru/api and ~/private/web-dock.
+    $configPath = dirname(__DIR__, 3) . '/private/web-dock/contact.php';
+    $config = is_file($configPath) ? require $configPath : [];
+    $secret = $config['SMARTCAPTCHA_SERVER_KEY'] ?? getenv('SMARTCAPTCHA_SERVER_KEY');
+    $password = $config['YANDEX_SMTP_APP_PASSWORD'] ?? getenv('YANDEX_SMTP_APP_PASSWORD');
+    $dbPath = $config['CONTACT_STATE_DB'] ?? getenv('CONTACT_STATE_DB');
     if (!$secret || !$password || !$dbPath) finish(503);
     $db = new PDO('sqlite:' . $dbPath, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     $db->exec('PRAGMA busy_timeout=3000');
