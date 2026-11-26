@@ -27,14 +27,20 @@
         status.textContent = "Отправляем заявку…";
         try {
             const response = await fetch(form.action, {method:"POST", body:new URLSearchParams(data)});
-            const result = await response.json();
-            if (!response.ok || result.ok !== true) throw new Error();
+            const result = await response.json().catch(() => ({}));
+            if (!response.ok || result.ok !== true) throw new Error(result.error || "");
             form.reset();
             updateContact();
             status.textContent = data.get("channel") === "email" ? "Спасибо! Ответим на указанную почту" : "Спасибо! Напишем вам в Telegram";
             if (typeof window.ym === "function") window.ym(112266666, "reachGoal", "project_request_sent");
-        } catch {
-            status.textContent = "Не удалось подтвердить отправку. Попробуйте позже или напишите нам напрямую.";
+        } catch (error) {
+            const messages = {
+                invalid: "Проверьте, что контакт и описание задачи заполнены верно.",
+                captcha_failed: "Проверка «Я не робот» не прошла. Пройдите её ещё раз и отправьте заявку.",
+                captcha_host: "Проверка «Я не робот» не прошла. Пройдите её ещё раз и отправьте заявку.",
+                rate_limit: "Слишком много попыток подряд. Попробуйте через 10 минут или напишите нам напрямую."
+            };
+            status.textContent = messages[error.message] || "Не удалось подтвердить отправку. Попробуйте позже или напишите нам напрямую.";
         } finally {
             submit.disabled = false;
             window.smartCaptcha?.reset();
