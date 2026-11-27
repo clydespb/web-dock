@@ -57,8 +57,10 @@ robots.txt, sitemap.xml
   и внешних библиотек.
 - Изображения: формат webp, `loading="lazy" decoding="async"` для всего, что ниже первого экрана.
 - Неразрывные элементы в телефоне/брендах: `&nbsp;`, `&#8209;` (как в футере).
-- Мета-теги, Open Graph, JSON-LD (`ProfessionalService`) и счётчик Яндекс.Метрики (id 112266666)
-  в `<head>` не удалять. Контакты (email, телефон, Telegram `t.me/clydespb`) при изменении
+- Мета-теги, Open Graph, JSON-LD (`@graph`: `ProfessionalService` с каталогом услуг + `WebSite`) и счётчик
+  Яндекс.Метрики (id 112266666) в `<head>` не удалять. При изменении услуг на странице обновлять
+  `hasOfferCatalog` в JSON-LD. Картинка для превью — `assets/img/og-cover.jpg` (1200×630); при замене
+  давать файлу новое имя, иначе мессенджеры покажут старую из кэша. Контакты (email, телефон, Telegram `t.me/clydespb`) при изменении
   править во всех местах: JSON-LD, hero, футер, плавающая кнопка `.tg-float`.
 - Форма заявки (`#project-form`, `contact.js`) отправляет POST в `api/contact.php`: SmartCaptcha →
   письмо через SMTP Яндекса. Ключи и путь к SQLite лежат вне репозитория, в
