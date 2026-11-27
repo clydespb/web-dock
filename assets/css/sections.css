@@ -289,10 +289,12 @@
     height:1px;
     background:linear-gradient(90deg,var(--accent) 0%,rgba(255,255,255,.08) 100%);
     opacity:.5;
+    z-index:0;
 }
 
 .timeline__item{
     position:relative;
+    z-index:1;
     padding-top:48px;
 }
 
@@ -343,7 +345,7 @@
     background:linear-gradient(90deg,var(--accent) 0%,var(--accent-warm) 100%);
     transform:scaleX(var(--progress, 0));
     transform-origin:left;
-    z-index:1;
+    z-index:0;
 }
 
 .timeline__step{
