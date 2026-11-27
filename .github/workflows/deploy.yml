@@ -5,34 +5,110 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Не запускать два деплоя одновременно: второй дождётся первого.
+concurrency:
+  group: deploy-jino
+  cancel-in-progress: false
+
+# SFTP Джино иногда не принимает подключение с конкретной машины GitHub,
+# а с новой машины проходит сразу. Поэтому при неудаче деплой повторяется
+# в новой задаче — она получает другую машину и другой адрес.
+
 jobs:
-  deploy:
+  attempt-1:
+    name: Попытка 1
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
+    outputs:
+      deployed: ${{ steps.done.outputs.deployed }}
     steps:
       - name: Получить код
         uses: actions/checkout@v6
 
-      - name: Установить lftp
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: Загрузить сайт
+        id: upload
+        continue-on-error: true
+        uses: ./.github/actions/sftp-deploy
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
 
-      - name: Загрузить файлы по SFTP
+      - name: Отметить успешную загрузку
+        id: done
+        if: steps.upload.outcome == 'success'
+        run: echo "deployed=true" >> "$GITHUB_OUTPUT"
+
+  attempt-2:
+    name: Попытка 2 (новая машина)
+    needs: attempt-1
+    if: always() && needs.attempt-1.outputs.deployed != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      deployed: ${{ steps.done.outputs.deployed }}
+    steps:
+      - name: Получить код
+        uses: actions/checkout@v6
+
+      - name: Загрузить сайт
+        id: upload
+        continue-on-error: true
+        uses: ./.github/actions/sftp-deploy
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+
+      - name: Отметить успешную загрузку
+        id: done
+        if: steps.upload.outcome == 'success'
+        run: echo "deployed=true" >> "$GITHUB_OUTPUT"
+
+  attempt-3:
+    name: Попытка 3 (новая машина)
+    needs: [attempt-1, attempt-2]
+    if: >-
+      always() &&
+      needs.attempt-1.outputs.deployed != 'true' &&
+      needs.attempt-2.outputs.deployed != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      deployed: ${{ steps.done.outputs.deployed }}
+    steps:
+      - name: Получить код
+        uses: actions/checkout@v6
+
+      - name: Загрузить сайт
+        id: upload
+        continue-on-error: true
+        uses: ./.github/actions/sftp-deploy
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+
+      - name: Отметить успешную загрузку
+        id: done
+        if: steps.upload.outcome == 'success'
+        run: echo "deployed=true" >> "$GITHUB_OUTPUT"
+
+  result:
+    name: Итог
+    needs: [attempt-1, attempt-2, attempt-3]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Проверить, что сайт загружен
         env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          A1: ${{ needs.attempt-1.outputs.deployed }}
+          A2: ${{ needs.attempt-2.outputs.deployed }}
+          A3: ${{ needs.attempt-3.outputs.deployed }}
         run: |
-          cat > /tmp/deploy.lftp <<EOF
-          set sftp:auto-confirm yes
-          set cmd:fail-exit yes
-          set net:timeout 20
-          set net:max-retries 6
-          set net:reconnect-interval-base 10
-          set net:reconnect-interval-multiplier 2
-          set net:reconnect-interval-max 60
-          open --env-password -u "$FTP_USERNAME" sftp://$FTP_SERVER:2222
-          pwd
-          cls -1
-          mirror --reverse --verbose --exclude-glob .git*/ --exclude-glob .git* --exclude-glob README.md --exclude-glob CLAUDE.md ./ ./
-          EOF
-          lftp -f /tmp/deploy.lftp
+          if [ "$A1" = "true" ] || [ "$A2" = "true" ] || [ "$A3" = "true" ]; then
+            echo "Сайт загружен (попытка 1: ${A1:-нет}, 2: ${A2:-нет}, 3: ${A3:-нет})."
+          else
+            echo "::error::Все три попытки не смогли подключиться к SFTP Джино. Проверьте хостинг и перезапустите деплой."
+            exit 1
+          fi
