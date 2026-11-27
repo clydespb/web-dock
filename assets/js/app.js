@@ -22,4 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initContactForm();
 
+    initServiceRequests();
+
+    initProcessProgress();
+
+    initNavSpy();
+
 });

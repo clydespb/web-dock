@@ -12,7 +12,7 @@ select{
 .section-heading h2,
 .cta h2,
 .case__info h3,
-.service h3{
+.service__title{
     font-family:var(--font-display);
     font-weight:var(--display-weight);
     text-transform:var(--display-transform);
@@ -36,7 +36,7 @@ select{
     font-size:calc(clamp(32px,3.2vw,48px) * var(--display-scale));
 }
 
-.service h3{
+.service__title{
     font-size:calc(38px * var(--display-scale));
 }
 
@@ -62,7 +62,7 @@ select{
     .hero h1{
         font-size:calc(44px * var(--display-scale));
     }
-    .service h3{
+    .service__title{
         font-size:calc(28px * var(--display-scale));
     }
 }

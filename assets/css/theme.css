@@ -49,7 +49,7 @@
 
 .timeline::before{
     background:linear-gradient(90deg, var(--accent) 0%, var(--accent-warm) 100%);
-    opacity:.45;
+    opacity:.18;
 }
 
 .timeline__item:last-child .timeline__step{
