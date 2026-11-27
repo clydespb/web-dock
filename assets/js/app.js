@@ -28,4 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initNavSpy();
 
+    initCardGlow();
+
 });
