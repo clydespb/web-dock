@@ -4,7 +4,7 @@
     --sheet-ink:#0B0D10;
     --sheet-muted:#4A5160;
     --sheet-line:rgba(11,13,16,.12);
-    --accent-on-light:#2F6FEA;
+    --accent-on-light:#245DCC;
 }
 
 ::selection{
@@ -172,7 +172,7 @@
 
 .cases .case__bar em{
     background:rgba(11,13,16,.05);
-    color:rgba(11,13,16,.5);
+    color:var(--sheet-muted);
 }
 
 @media (hover:hover){

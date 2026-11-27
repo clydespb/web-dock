@@ -69,7 +69,7 @@ select{
 
 .advantage-card h3,
 .timeline__item h3,
-.footer__column h4{
+.footer__title{
     font-family:var(--font-body);
     letter-spacing:-.015em;
 }

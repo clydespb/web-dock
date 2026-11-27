@@ -97,7 +97,8 @@
     opacity:0;
     transform:translateY(14px) scale(.9);
     pointer-events:none;
-    transition:opacity .35s ease, transform .35s cubic-bezier(.22,1,.36,1);
+    visibility:hidden;
+    transition:opacity .35s ease, transform .35s cubic-bezier(.22,1,.36,1), visibility 0s linear .35s;
 }
 
 .tg-float svg{
@@ -112,11 +113,14 @@
     opacity:1;
     transform:none;
     pointer-events:auto;
+    visibility:visible;
+    transition:opacity .35s ease, transform .35s cubic-bezier(.22,1,.36,1), visibility 0s linear;
 }
 
 body.nav-open .tg-float{
     opacity:0;
     pointer-events:none;
+    visibility:hidden;
 }
 
 @media (max-width:768px){
