@@ -1,0 +1,42 @@
+name: Загрузка сайта на Джино по SFTP
+description: Устанавливает lftp и зеркалирует репозиторий на хостинг Джино.
+
+inputs:
+  server:
+    description: Адрес SFTP-сервера
+    required: true
+  username:
+    description: Имя пользователя SFTP
+    required: true
+  password:
+    description: Пароль SFTP
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Установить lftp
+      shell: bash
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+    - name: Загрузить файлы по SFTP
+      shell: bash
+      env:
+        FTP_SERVER: ${{ inputs.server }}
+        FTP_USERNAME: ${{ inputs.username }}
+        LFTP_PASSWORD: ${{ inputs.password }}
+      run: |
+        cat > /tmp/deploy.lftp <<LFTP
+        set sftp:auto-confirm yes
+        set cmd:fail-exit yes
+        set net:timeout 15
+        set net:max-retries 3
+        set net:reconnect-interval-base 5
+        set net:reconnect-interval-multiplier 2
+        set net:reconnect-interval-max 20
+        open --env-password -u "$FTP_USERNAME" sftp://$FTP_SERVER:2222
+        pwd
+        cls -1
+        mirror --reverse --verbose --exclude-glob .git*/ --exclude-glob .git* --exclude-glob README.md --exclude-glob CLAUDE.md ./ ./
+        LFTP
+        lftp -f /tmp/deploy.lftp
