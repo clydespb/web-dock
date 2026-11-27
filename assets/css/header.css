@@ -118,6 +118,16 @@
 
     transform:scaleX(1);
 }
+
+.nav a.is-active{
+
+    color:var(--text);
+}
+
+.nav a.is-active::after{
+
+    transform:scaleX(1);
+}
 .header{
 
     transition:

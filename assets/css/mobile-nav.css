@@ -86,6 +86,10 @@
     padding-left:12px;
 }
 
+.mobile-nav__list a.is-active{
+    color:var(--accent);
+}
+
 .mobile-nav__cta{
     margin-top:40px;
     align-self:flex-start;
